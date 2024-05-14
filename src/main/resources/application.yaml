@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: portfolio
+  profiles:
+    active: local
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/dbbaroportfolio
+    username: root
+    password: jhlee
+
+mybatis:
+  type-aliases-package: com.baro.portfolio.domain

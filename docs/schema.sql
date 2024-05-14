@@ -29,7 +29,7 @@ CREATE TABLE tProject(
     sMainFunction   VARCHAR(1000),
     sInterest       VARCHAR(1000),
     sGithub         VARCHAR(500),
-    bIsPublic       TINYINT         NOT NULL    DEFAULT 1,
+    bIsPublic       TINYINT(1)      NOT NULL    DEFAULT 1,
     dtCreatedAt     TIMESTAMP       NOT NULL    DEFAULT NOW(),
     dtModifiedAt    TIMESTAMP       NOT NULL    DEFAULT NOW()
 );
