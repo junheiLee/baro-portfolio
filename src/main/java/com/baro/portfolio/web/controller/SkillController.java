@@ -1,4 +1,4 @@
-package com.baro.portfolio.controller;
+package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.SkillService;
 

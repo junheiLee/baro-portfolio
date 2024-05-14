@@ -22,12 +22,12 @@ class MybatisTest {
     void saveAndFind() {
 
         //given
-        Skill skill = new Skill("test");
+        Skill skill = new Skill("test!!");
 
         //when
         skillService.save(skill);
 
-        Integer findSeqByName = skillService.findByName("test");
+        Integer findSeqByName = skillService.findByName("test!!");
         String findNameBySeq = skillService.findBySeq(findSeqByName);
 
         //then
