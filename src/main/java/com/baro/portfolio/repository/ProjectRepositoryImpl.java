@@ -39,6 +39,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Override
     public boolean remove(Integer seq) {
-        return false;
+
+        return this.projectMapper.remove(seq) == 1;
     }
 }

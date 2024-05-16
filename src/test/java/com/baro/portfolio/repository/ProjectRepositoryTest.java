@@ -64,4 +64,13 @@ class ProjectRepositoryTest {
         assertThat(updatedRowCount).isEqualTo(1);
     }
 
+    @Test
+    void remove() {
+        //when
+        boolean isRemove = projectRepository.remove(savedProjectSeq);
+
+        //then
+        assertThat(isRemove).isTrue();
+    }
+
 }
