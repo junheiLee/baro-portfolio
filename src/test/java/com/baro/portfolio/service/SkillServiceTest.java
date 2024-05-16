@@ -1,4 +1,4 @@
-package com.baro.portfolio;
+package com.baro.portfolio.service;
 
 import com.baro.portfolio.domain.Skill;
 import com.baro.portfolio.service.itf.SkillService;
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-class MybatisTest {
+class SkillServiceTest {
 
     @Autowired
     SkillService skillService;
