@@ -1,15 +1,13 @@
 package com.baro.portfolio.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
-@Getter
 @ToString
+@EqualsAndHashCode
+@Getter
 public class Project {
 
     private Integer seq;

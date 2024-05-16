@@ -15,6 +15,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
     @Autowired
     public ProjectRepositoryImpl(ProjectMapper projectMapper) {
+
         this.projectMapper = projectMapper;
     }
 
@@ -25,14 +26,15 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public Optional<Project> findBySeq(Integer seq) {
+        public Optional<Project> findBySeq(Integer seq) {
 
         return this.projectMapper.findBySeq(seq);
     }
 
     @Override
-    public void update(Integer seq, Project project) {
+    public Integer update(Integer seq, Project project) {
 
+        return this.projectMapper.update(seq, project);
     }
 
     @Override

@@ -10,7 +10,7 @@ public interface ProjectRepository {
 
     Optional<Project> findBySeq(Integer seq);
 
-    void update(Integer seq, Project project);
+    Integer update(Integer seq, Project project);
 
     boolean remove(Integer seq);
 }

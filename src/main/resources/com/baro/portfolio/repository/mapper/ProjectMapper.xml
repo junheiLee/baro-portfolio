@@ -35,9 +35,10 @@
             nHeadcount=#{updateParam.headcount},
             sArchitecture=#{updateParam.architecture},
             sErd=#{updateParam.erd},
-            sMainFunction=#{updateParam.mainFuction},
+            sMainFunction=#{updateParam.mainFunction},
             sInterest=#{updateParam.interest},
-            sGithub=#{updateParam.github}
+            sGithub=#{updateParam.github},
+            dtModifiedAt= now()
         where nProjectSeq = #{seq}
     </update>
 
