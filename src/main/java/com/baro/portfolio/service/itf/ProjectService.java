@@ -1,8 +1,11 @@
 package com.baro.portfolio.service.itf;
 
-import com.baro.portfolio.web.dto.ProjectCreateRequestDto;
+import com.baro.portfolio.domain.Project;
+import com.baro.portfolio.web.dto.ProjectRequestDto;
 
 public interface ProjectService {
 
-    void save(ProjectCreateRequestDto dto);
+    int save(ProjectRequestDto dto);
+
+    Project read(Integer projectSeq);
 }

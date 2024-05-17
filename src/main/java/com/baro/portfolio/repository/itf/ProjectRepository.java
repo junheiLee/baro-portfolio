@@ -6,11 +6,11 @@ import java.util.Optional;
 
 public interface ProjectRepository {
 
-    void save(Project project);
+    int save(Project project);
 
     Optional<Project> findBySeq(Integer seq);
 
-    Integer update(Integer seq, Project project);
+    int update(Integer seq, Project project);
 
     boolean remove(Integer seq);
 }

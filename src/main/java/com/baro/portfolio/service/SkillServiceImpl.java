@@ -3,7 +3,6 @@ package com.baro.portfolio.service;
 import com.baro.portfolio.domain.Skill;
 import com.baro.portfolio.repository.itf.SkillRepository;
 import com.baro.portfolio.service.itf.SkillService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,9 @@
 package com.baro.portfolio.domain;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -16,6 +19,7 @@ public class Project {
     private Integer isPublic;
     private Date start;
     private Date end;
+    private Integer isProceeding;
     private Integer headcount;
     private String architecture;
     private String erd;
@@ -25,19 +29,20 @@ public class Project {
     private Timestamp createdAt;
     private Timestamp modifiedAt;
 
-    public Project(){
+    public Project() {
 
     }
 
     @Builder
     public Project(String title, Integer isPublic,
-                   Date start, Date end, Integer headcount,
+                   Date start, Date end, Integer isProceeding, Integer headcount,
                    String description, String architecture, String erd,
                    String mainFunction, String interest, String github) {
         this.title = title;
         this.isPublic = isPublic;
         this.start = start;
         this.end = end;
+        this.isProceeding = isProceeding;
         this.headcount = headcount;
         this.description = description;
         this.architecture = architecture;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="/css" rel="stylesheet">
+    <Title> projects</Title>
+</head>
+<body>
+<div class="container" style="max-width:600px">
+    <div class="py-5 text-left">
+        <h2>Projects</h2>
+    </div>
+
+    <div class="row">
+        <div class = "col">
+            <button class="btn btn-dark float-end"
+                    onclick="location.href='createForm.html"
+                    th:onclick="|location.href=@{/projects}|"
+                    type="button"> + </button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <tr th:each="project : ${projects}">
+
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

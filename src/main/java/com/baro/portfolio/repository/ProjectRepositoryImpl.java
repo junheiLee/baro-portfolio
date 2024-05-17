@@ -20,19 +20,20 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public void save(Project project) {
+    public int save(Project project) {
 
         this.projectMapper.save(project);
+        return project.getSeq();
     }
 
     @Override
-        public Optional<Project> findBySeq(Integer seq) {
+    public Optional<Project> findBySeq(Integer seq) {
 
         return this.projectMapper.findBySeq(seq);
     }
 
     @Override
-    public Integer update(Integer seq, Project project) {
+    public int update(Integer seq, Project project) {
 
         return this.projectMapper.update(seq, project);
     }

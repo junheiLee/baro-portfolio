@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2>Create Project</h2>
+    </div>
+
+    <h4> 프로젝트 정보 입력 </h4>
+
+    <form action="" th:action th:object="${projectRequestDto}" method="post">
+
+        <div>
+            <label for="title">title</label>
+            <input type="text" id="title" th:field="*{title}" class="form-control"
+                   th:errorclass="field-error" maxlength="20">
+            <div class="field-error" th:errors="*{title}">
+            </div>
+        </div>
+        <div>
+            <label for="description">description</label>
+            <textarea type="text" id="description" th:field="*{description}" class="form-control"
+                      th:errorclass="field-error" maxlength="400"></textarea>
+            <div class="field-error" th:errors="*{description}">
+            </div>
+        </div>
+        <div class="form-check form-switch">
+            <label for="isPublic">isPublic</label>
+            <input type="checkbox" id="isPublic" th:field="*{isPublic}" class="form-check-input"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{isPublic}">
+            </div>
+        </div>
+        <div class="form-check form-switch">
+            <label for="isProceeding">isProceeding</label>
+            <input type="checkbox" id="isProceeding" th:field="*{isProceeding}" value="on" class="form-check-input"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{isProceeding}">
+            </div>
+        </div>
+        <div>
+            <label for="start">start date</label>
+            <input type="date" id="start" th:field="*{start}" class="form-control"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{start}">
+            </div>
+        </div>
+        <div>
+            <label for="end">end date</label>
+            <input type="date" id="end" th:field="*{end}" class="form-control"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{end}">
+            </div>
+        </div>
+
+        <div>
+            <label for="headcount">headcount</label>
+            <input type="number" id="headcount" th:field="*{headcount}" class="form-control"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{headcount}">
+            </div>
+        </div>
+<!--        <div>-->
+<!--            <label for="architecture">architecture</label>-->
+<!--            <input type="text" id="architecture" th:field="*{architecture}" class="form-control"-->
+<!--                   th:errorclass="field-error">-->
+<!--            <div class="field-error" th:errors="*{architecture}">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <label for="erd">erd</label>-->
+<!--            <input type="text" id="erd" th:field="*{erd}" class="form-control"-->
+<!--                   th:errorclass="field-error">-->
+<!--            <div class="field-error" th:errors="*{erd}">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div>
+            <label for="mainFunction">mainFunction</label>
+            <textarea type="text" id="mainFunction" th:field="*{mainFunction}" class="form-control"
+                      th:errorclass="field-error" maxlength="1000"></textarea>
+            <div class="field-error" th:errors="*{mainFunction}">
+            </div>
+        </div>
+        <div>
+            <label for="interest">interest</label>
+            <textarea type="text" id="interest" th:field="*{interest}" class="form-control"
+                      th:errorclass="field-error" maxlength="1000"></textarea>
+            <div class="field-error" th:errors="*{interest}">
+        </div>
+        </div>
+        <div>
+            <label for="github">github</label>
+            <input type="text" id="github" th:field="*{github}" class="form-control"
+                   th:errorclass="field-error" maxlength="500">
+            <div class="field-error" th:errors="*{github}">
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-dark btn-lg" type="submit">
+                    submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
