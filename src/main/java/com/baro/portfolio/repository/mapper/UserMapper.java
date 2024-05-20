@@ -3,6 +3,8 @@ package com.baro.portfolio.repository.mapper;
 import com.baro.portfolio.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Optional;
+
 @Mapper
 public interface UserMapper {
 
@@ -13,4 +15,6 @@ public interface UserMapper {
     Integer countByNickname(String nickname);
 
     Integer countByPhone(String phone);
+
+    Optional<User> findByEmailAndPassword(String email, String password);
 }

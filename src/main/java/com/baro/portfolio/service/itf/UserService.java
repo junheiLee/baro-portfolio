@@ -1,6 +1,10 @@
 package com.baro.portfolio.service.itf;
 
+import com.baro.portfolio.web.dto.AccountInfo;
+import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
+
+import java.util.Optional;
 
 public interface UserService {
 
@@ -11,4 +15,6 @@ public interface UserService {
     boolean isNicknameDuplicated(String nickname);
 
     boolean isPhoneDuplicated(String phone);
+
+    Optional<AccountInfo> signIn(SignInDto dto);
 }

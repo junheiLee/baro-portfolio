@@ -1,10 +1,15 @@
 package com.baro.portfolio.service;
 
+import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.service.itf.UserService;
+import com.baro.portfolio.web.dto.AccountInfo;
+import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +36,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isPhoneDuplicated(String phone) {
         return userRepository.existsByPhone(phone);
+    }
+
+    @Override
+    public Optional<AccountInfo> signIn(SignInDto dto) {
+
+        Optional<User> userOptional
+                = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
+
+        if (userOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        User user = userOptional.get();
+        AccountInfo accountInfo = new AccountInfo(user.getSeq(), user.getEmail());
+
+        return Optional.of(accountInfo);
+
     }
 }

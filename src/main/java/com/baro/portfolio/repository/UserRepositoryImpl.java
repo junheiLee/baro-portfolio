@@ -4,7 +4,10 @@ import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.repository.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -31,5 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public boolean existsByPhone(String phone) {
         return userMapper.countByPhone(phone) == 1;
+    }
+
+    @Override
+    public Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password) {
+        return userMapper.findByEmailAndPassword(email, password);
     }
 }

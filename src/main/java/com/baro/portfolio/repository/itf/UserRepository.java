@@ -2,6 +2,8 @@ package com.baro.portfolio.repository.itf;
 
 import com.baro.portfolio.domain.User;
 
+import java.util.Optional;
+
 public interface UserRepository {
 
     int save(User user);
@@ -11,5 +13,7 @@ public interface UserRepository {
     boolean existsByNickname(String nickname);
 
     boolean existsByPhone(String phone);
+
+    Optional<User> findByEmailAndPassword(String email, String password);
 
 }

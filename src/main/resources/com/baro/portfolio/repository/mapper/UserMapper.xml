@@ -33,4 +33,10 @@
         where sPhone = #{phone}
     </select>
 
+    <select id="findByEmailAndPassword" resultType="User">
+        select sNickname as nickname, nUserSeq as seq
+        from tUser
+        where sEmail = #{email} and sPassword = #{password}
+    </select>
+
 </mapper>
