@@ -18,4 +18,5 @@ public interface UserRepository {
 
     Optional<User> findBySeq(int seq);
 
+    void updateBySeq(int seq, User user);
 }

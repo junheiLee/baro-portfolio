@@ -1,11 +1,12 @@
-package com.baro.portfolio.web.dto;
+package com.baro.portfolio.web.dto.result;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class UserInfo {
 

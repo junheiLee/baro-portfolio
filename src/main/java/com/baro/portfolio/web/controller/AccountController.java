@@ -1,8 +1,8 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.UserService;
-import com.baro.portfolio.web.dto.AccountInfo;
 import com.baro.portfolio.web.dto.SignInDto;
+import com.baro.portfolio.web.dto.result.AccountInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;

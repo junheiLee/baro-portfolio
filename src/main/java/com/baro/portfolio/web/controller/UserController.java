@@ -1,9 +1,9 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.UserService;
-import com.baro.portfolio.web.dto.ProjectsInfo;
+import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.UserInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -51,5 +50,28 @@ public class UserController {
         model.addAttribute("userInfo", userInfo);
 //        ProjectsInfo projectsInfo =
         return "users/portFolio";
+    }
+
+    //todo: 로그인 계정과 일치하는 seq만 수정 가능
+    @GetMapping("/{userSeq}/edit")
+    public String portFolio(Model model, @PathVariable int userSeq) {
+        EditUserDto dto = userService.findEditUserBySeq(userSeq);
+        model.addAttribute("editUserDto", dto);
+
+        return "users/editForm";
+    }
+
+    @PostMapping("/{userSeq}/edit")
+    public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto dto,
+                       BindingResult result, @PathVariable int userSeq) {
+
+        log.info("editUserDto={}", dto.toString());
+
+        if (result.hasErrors()) {
+            return "users/editForm";
+        }
+
+        userService.updateBySeq(userSeq, dto);
+        return "redirect:/users/" + userSeq;
     }
 }

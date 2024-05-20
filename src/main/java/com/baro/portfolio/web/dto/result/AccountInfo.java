@@ -1,4 +1,4 @@
-package com.baro.portfolio.web.dto;
+package com.baro.portfolio.web.dto.result;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

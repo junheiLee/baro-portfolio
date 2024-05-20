@@ -3,10 +3,11 @@ package com.baro.portfolio.service;
 import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.service.itf.UserService;
-import com.baro.portfolio.web.dto.AccountInfo;
+import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.UserInfo;
+import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,30 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .introduce(user.getIntroduce())
                 .build();
+    }
+
+    @Override
+    public EditUserDto findEditUserBySeq(int seq) {
+
+        Optional<User> userOptional = userRepository.findBySeq(seq);
+        User user = userOptional.orElseThrow();
+
+        return EditUserDto.builder()
+                .nickname(user.getNickname())
+                .introduce(user.getIntroduce())
+                .image(user.getImage())
+                .build();
+    }
+
+    @Override
+    public void updateBySeq(int seq, EditUserDto dto) {
+
+        User user = User.builder()
+                .nickname(dto.getNickname())
+                .image(dto.getImage())
+                .introduce(dto.getIntroduce())
+                .build();
+
+        userRepository.updateBySeq(seq, user);
     }
 }

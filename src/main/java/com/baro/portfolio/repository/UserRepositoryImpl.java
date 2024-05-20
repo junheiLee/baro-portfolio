@@ -4,10 +4,8 @@ import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.repository.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Repository
@@ -38,12 +36,17 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password) {
+    public Optional<User> findByEmailAndPassword(String email, String password) {
         return userMapper.findByEmailAndPassword(email, password);
     }
 
     @Override
     public Optional<User> findBySeq(int seq) {
         return userMapper.findBySeq(seq);
+    }
+
+    @Override
+    public void updateBySeq(int seq, User user) {
+        userMapper.updateBySeq(seq, user);
     }
 }

@@ -45,6 +45,12 @@
         where nUserSeq = #{seq}
     </select>
 
-
+    <update id="updateBySeq">
+        update tUser
+        set sNickname=#{user.nickname},
+            sImage=#{user.image},
+            sIntroduce=#{user.introduce}
+        where nUserSeq=#{seq}
+    </update>
 
 </mapper>

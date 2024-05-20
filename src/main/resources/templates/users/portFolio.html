@@ -40,7 +40,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <div class="col">
                     <button class="w-100 btn btn-dark btn-lg" type="button"
-                            th:onclick="|location.href='@{/users/edit}|">
+                            th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${userInfo.seq})}'|">
                         edit
                     </button>
                 </div>
