@@ -39,4 +39,12 @@
         where sEmail = #{email} and sPassword = #{password}
     </select>
 
+    <select id="findBySeq" resultType="User">
+        select nUserSeq as seq, sName as name, sNickname as nickname, sEmail as email, sIntroduce as introduce
+        from tUser
+        where nUserSeq = #{seq}
+    </select>
+
+
+
 </mapper>

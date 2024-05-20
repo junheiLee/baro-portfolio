@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Repository
@@ -39,5 +40,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password) {
         return userMapper.findByEmailAndPassword(email, password);
+    }
+
+    @Override
+    public Optional<User> findBySeq(int seq) {
+        return userMapper.findBySeq(seq);
     }
 }

@@ -17,4 +17,7 @@ public interface UserMapper {
     Integer countByPhone(String phone);
 
     Optional<User> findByEmailAndPassword(String email, String password);
+
+    Optional<User> findBySeq(int seq);
+
 }

@@ -6,6 +6,7 @@ import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.AccountInfo;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
+import com.baro.portfolio.web.dto.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +54,20 @@ public class UserServiceImpl implements UserService {
 
         return Optional.of(accountInfo);
 
+    }
+
+    @Override
+    public UserInfo findBySeq(int seq) {
+
+        Optional<User> userOptional = userRepository.findBySeq(seq);
+        User user = userOptional.orElseThrow();
+
+        return UserInfo.builder()
+                .seq(seq)
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .email(user.getEmail())
+                .introduce(user.getIntroduce())
+                .build();
     }
 }

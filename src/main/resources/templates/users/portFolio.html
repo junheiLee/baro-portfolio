@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+        max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-left">
+        <h2> Portfolio</h2>
+    </div>
+
+    <div>
+        <h4 th:text="|${userInfo.name} 님|" > </h4>
+        <hr class="my-1">
+        <div>
+            <label for="nickname">nickname</label>
+            <input type="text" id="nickname" th:field="${userInfo.nickname}" class="form-control" readonly>
+            </div>
+        </div>
+        <div>
+            <label for="email">email</label>
+            <input type="text" id="email" th:field="${userInfo.email}" class="form-control" readonly>
+        </div>
+        <div>
+            <label for="introduce">introduce</label>
+            <textarea type="text" id="introduce" th:field="${userInfo.introduce}" class="form-control" readonly></textarea>
+        </div>
+
+
+<!--        <div th:if="${#projectsInfo.contributors.contains(session.accountInfo.seq)}">-->
+            <div class="row" style="margin-top: 1rem;">
+                <div class="col">
+                    <button class="w-100 btn btn-dark btn-lg" type="button"
+                            th:onclick="|location.href='@{/users/edit}|">
+                        edit
+                    </button>
+                </div>
+            </div>
+<!--        </div>-->
+
+
+        <div style="margin-top: 2rem;">
+            <h4>Projects</h4>
+            <hr class="my-1">
+            <ul th:each="project : ${projectsInfo}">
+                <li>
+
+                    <div>
+                        <label>요약</label>
+                        <textarea type="text" id="description" name="description" class="form-control"
+                                  th:value="${project.title}" readonly></textarea>
+                    </div>
+                    <div>
+                        <label>기간</label>
+                        <span th:text="${project.start}" ~ th:value="${project.end}"></span>
+                        <span th:if="${project.isProceeding eq 1}"> | 진행 중 </span>
+                    </div>
+                    <div>
+                        <label>인원</label>
+                        <p> th:value="${project.headcount}" </p>
+                    </div>
+                    <div>
+                        <label for="mainFunction">주요 기능</label>
+                        <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
+                                  th:value="${project.mainFunction}" readonly></textarea>
+                    </div>
+                    <div>
+                        개인 기여
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row" style="margin-top: 1rem;">
+            <div class="col">
+                <button class="w-100 btn btn-dark btn-lg" type="button"
+                        th:onclick="|location.href='@{/projects/edit/{projectSeq}}|">
+                    edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
