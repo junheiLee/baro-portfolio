@@ -20,16 +20,16 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean existsByEmail(String email) {
-        return false;
+        return userMapper.countByEmail(email) == 1;
     }
 
     @Override
     public boolean existsByNickname(String nickname) {
-        return false;
+        return userMapper.countByNickname(nickname) == 1;
     }
 
     @Override
     public boolean existsByPhone(String phone) {
-        return false;
+        return userMapper.countByPhone(phone) == 1;
     }
 }

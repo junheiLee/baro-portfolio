@@ -1,16 +1,15 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.UserService;
-import com.baro.portfolio.web.dto.UserCreateDto;
+import com.baro.portfolio.web.dto.SignUpDto;
+import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -19,21 +18,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 
     private final UserService userService;
+    private final UserValidator userValidator;
+
+    @InitBinder
+    public void init(WebDataBinder dataBinder) {
+        dataBinder.addValidators(userValidator);
+    }
 
     @GetMapping("/sign-up")
-    public String singUpForm(@ModelAttribute("userCreateDto") UserCreateDto userCreateDto) {
+    public String singUpForm(@ModelAttribute("signUpDto") SignUpDto signUpDto) {
         return "users/signUpForm";
     }
 
     @PostMapping("/sign-up")
-    public String signUp(@Valid @ModelAttribute("userCreateDto") UserCreateDto userCreateDto, BindingResult result) {
-        log.info(userCreateDto.toString());
+    public String signUp(@Valid @ModelAttribute("signUpDto") SignUpDto signUpDto, BindingResult result) {
 
         if (result.hasErrors()) {
             return "users/signUpForm";
         }
 
-        userService.signUp(userCreateDto);
+        userService.signUp(signUpDto);
         return "redirect:/";
     }
 }

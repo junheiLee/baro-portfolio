@@ -25,53 +25,53 @@
 
     <h4> 회원 정보 입력 </h4>
 
-    <form action="" th:action th:object="${userCreateDto}" method="post">
+    <form action="" th:action th:object="${signUpDto}" method="post">
 
         <div>
             <label for="email">email</label>
-            <input type="email" id="email" th:field="*{email}" class="form-control"
+            <input type="email" id="email" th:field="*{email}" required maxlength="40" class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{email}">
             </div>
         </div>
         <div>
             <label for="password">password</label>
-            <input type="password" id="password" th:field="*{password}" class="form-control"
+            <input type="password" id="password" th:field="*{password}" minlength="8" maxlength="20" class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{password}">
             </div>
         </div>
         <div>
             <label for="nickname">nickname</label>
-            <input type="text" id="nickname" th:field="*{nickname}" class="form-control"
+            <input type="text" id="nickname" th:field="*{nickname}" maxlength="20" class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{nickname}">
             </div>
         </div>
         <div>
             <label for="name">name</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control"
+            <input type="text" id="name" th:field="*{name}" maxlength="20" class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{name}">
             </div>
         </div>
         <div>
             <label for="phone">phone</label>
-            <input type="text" id="phone" th:field="*{phone}" class="form-control"  placeholder="000-0000-0000"
+            <input type="text" id="phone" th:field="*{phone}" maxlength="20" class="form-control"  placeholder="000-0000-0000"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{phone}">
             </div>
         </div>
         <div>
             <label for="image">image</label>
-            <input type="text" id="image" th:field="*{image}" class="form-control"
+            <input type="text" id="image" th:field="*{image}" maxlength="500" class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{image}">
             </div>
         </div>
         <div>
             <label for="introduce">introduce</label>
-            <textarea type="text" id="introduce" th:field="*{introduce}" class="form-control"
+            <textarea type="text" id="introduce" th:field="*{introduce}" maxlength="400" class="form-control"
                       th:errorclass="field-error"></textarea>
             <div class="field-error" th:errors="*{introduce}">
             </div>

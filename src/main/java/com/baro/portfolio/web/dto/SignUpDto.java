@@ -9,7 +9,10 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class UserCreateDto {
+public class SignUpDto {
+
+    private final static String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@!%*#?&.])[A-Za-z0-9$@!%*#?&.]{8,20}$";
+    private final static String PHONE_PATTERN = "\\d{3}-\\d{3,4}-\\d{4}";
 
     @NotEmpty
     @Size(max = 40)
@@ -17,7 +20,7 @@ public class UserCreateDto {
     private String email;
 
     @NotBlank
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!]).{8,20}$", message = "ㅎㄱㄿㅍ")
+    @Pattern(regexp = PASSWORD_PATTERN, message = "영문, 숫자, 특수 문자 포함 8 ~ 20자 사이의 비밀 번호를 입력해주세요.")
     private String password;
 
     @NotBlank
@@ -29,7 +32,7 @@ public class UserCreateDto {
     private String name;
 
     @NotBlank
-    @Pattern(regexp = "\\d{3}-\\d{3,4}-\\d{4}")
+    @Pattern(regexp = PHONE_PATTERN, message = "000-0000-0000 형식으로 입력해 주세요.")
     private String phone;
 
     @Size(max = 500)
@@ -38,7 +41,7 @@ public class UserCreateDto {
     @Size(max = 400)
     private String introduce;
 
-    public UserCreateDto() {
+    public SignUpDto() {
 
     }
 
