@@ -1,7 +1,6 @@
 package com.baro.portfolio.repository.mapper;
 
 import com.baro.portfolio.domain.Skill;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Optional;

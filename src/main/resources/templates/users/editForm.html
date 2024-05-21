@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+        max-width: 560px;
+        }
+
+        .field-error {
+        border-color: #dc3545;
+        color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="py-5 text-center">
+        <h2> Sign Up</h2>
+    </div>
+
+    <h4> 회원 정보 입력 </h4>
+
+    <form action="" th:action th:object="${editUserDto}" method="post">
+
+        <div>
+            <label for="nickname">nickname</label>
+            <input type="text" id="nickname" th:field="*{nickname}" maxlength="20" class="form-control"
+                   th:errorclass="field-error">
+            <div class="field-error" th:errors="*{nickname}">
+            </div>
+        </div>
+
+<!--        &lt;!&ndash; 파일 업로드 되면 &ndash;&gt;-->
+<!--        <div>-->
+<!--            <label for="image">image</label>-->
+<!--            <input type="text" id="image" th:field="*{image}" maxlength="500" class="form-control"-->
+<!--                   th:errorclass="field-error">-->
+<!--            <div class="field-error" th:errors="*{image}">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div>
+            <label for="introduce">introduce</label>
+            <textarea type="text" id="introduce" th:field="*{introduce}" maxlength="400" class="form-control"
+                      th:errorclass="field-error"></textarea>
+            <div class="field-error" th:errors="*{introduce}">
+            </div>
+        </div>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-dark btn-lg" type="submit">
+                    submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

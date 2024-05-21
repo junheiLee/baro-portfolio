@@ -4,8 +4,8 @@ DROP TABLE tUser;
 CREATE TABLE tUser(
     nUserSeq        INT             PRIMARY KEY AUTO_INCREMENT,
     sEmail          VARCHAR(40)     NOT NULL    UNIQUE,
-    sPassword       VARCHAR(40)     NOT NULL,
-    sNickName       VARCHAR(20)     NOT NULL    UNIQUE,
+    sPassword       VARCHAR(60)     NOT NULL,
+    sNickname       VARCHAR(20)     NOT NULL    UNIQUE,
     sName           VARCHAR(20)     NOT NULL,
     sPhone          VARCHAR(20)     NOT NULL    UNIQUE,
     sImage          VARCHAR(500),

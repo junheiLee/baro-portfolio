@@ -3,7 +3,6 @@ package com.baro.portfolio.service;
 import com.baro.portfolio.domain.Skill;
 import com.baro.portfolio.repository.itf.SkillRepository;
 import com.baro.portfolio.service.itf.SkillService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +34,7 @@ public class SkillServiceImpl implements SkillService {
     public String findBySeq(Integer seq) {
 
         Skill skill = skillRepository.findBySeq(seq)
-                .orElseThrow(() -> new RuntimeException("exception handler 만들어야하나?"));
+                .orElseThrow(() -> new RuntimeException("임시"));
 
         return skill.getName();
     }

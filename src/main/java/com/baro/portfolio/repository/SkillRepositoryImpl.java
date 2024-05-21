@@ -3,7 +3,6 @@ package com.baro.portfolio.repository;
 import com.baro.portfolio.domain.Skill;
 import com.baro.portfolio.repository.itf.SkillRepository;
 import com.baro.portfolio.repository.mapper.SkillMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
