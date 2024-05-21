@@ -18,6 +18,11 @@
     </div>
     <div>
         <div>
+            <form th:action="@{/projects/{projectSeq}/delete(projectSeq=${projectInfo.seq})}" method="post">
+                <button class="w-100 btn btn-danger btn-lg" type="submit"> 삭제 </button>
+            </form>
+        </div>
+        <div>
             <label for="description">description</label>
             <textarea type="text" id="description" name="description" class="form-control"
                       th:text="${projectInfo.description}" readonly></textarea>

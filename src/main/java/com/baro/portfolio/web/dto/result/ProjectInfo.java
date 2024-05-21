@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class ProjectInfo {
 
+    private int seq;
     private String title;
     private String description;
     private boolean isPublic;
@@ -30,6 +31,7 @@ public class ProjectInfo {
 
     public void fromEntity(Project project) {
 
+        this.seq = project.getSeq();
         this.title = project.getTitle();
         this.description = project.getDescription();
         this.isPublic = project.getIsPublic() == 1;

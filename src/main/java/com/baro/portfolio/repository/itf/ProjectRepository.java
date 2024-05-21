@@ -13,9 +13,13 @@ public interface ProjectRepository {
 
     int update(int projectSeq, Project project, int userSeq, String myPart);
 
-    boolean remove(int seq);
+    boolean removeProject(int seq);
 
     List<Integer> findContributorsBySeq(int seq);
 
     String findMyPart(int userSeq, int projectSeq);
+
+    void removeContributor(int userSeq, int projectSeq);
+
+    int countContributors(int projectSeq);
 }

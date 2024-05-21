@@ -43,9 +43,21 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public boolean remove(int seq) {
+    public boolean removeProject(int seq) {
 
         return this.projectMapper.remove(seq) == 1;
+    }
+
+    @Override
+    public void removeContributor(int userSeq, int projectSeq) {
+
+        this.userProjectMapper.remove(userSeq, projectSeq);
+    }
+
+    @Override
+    public int countContributors(int projectSeq) {
+
+        return this.userProjectMapper.findUserByProjectSeq(projectSeq).size();
     }
 
     @Override

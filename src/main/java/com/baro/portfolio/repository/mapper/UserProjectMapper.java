@@ -14,4 +14,6 @@ public interface UserProjectMapper {
     String findMyPart(int userSeq, int projectSeq);
 
     void updateMyPart(int userSeq, int projectSeq, String myPart);
+
+    int remove(int userSeq, int projectSeq);
 }

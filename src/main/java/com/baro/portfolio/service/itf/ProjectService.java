@@ -17,4 +17,6 @@ public interface ProjectService {
     void update(int userSeq, int projectSeq, EditProjectDto dto);
 
     String findMyPart(int userSeq, int projectSeq);
+
+    void delete(int userSeq, int projectSeq);
 }

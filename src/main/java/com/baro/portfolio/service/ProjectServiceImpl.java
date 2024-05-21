@@ -57,5 +57,16 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findMyPart(userSeq, projectSeq);
     }
 
+    @Override
+    public void delete(int userSeq, int projectSeq) {
+        projectRepository.removeContributor(userSeq, projectSeq);
+
+        int remainContributor = projectRepository.countContributors(projectSeq);
+
+        if (remainContributor == 0) {
+            projectRepository.removeProject(projectSeq);
+        }
+    }
+
 
 }

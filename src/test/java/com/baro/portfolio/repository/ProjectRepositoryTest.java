@@ -65,9 +65,9 @@ class ProjectRepositoryTest {
     }
 
     @Test
-    void remove() {
+    void removeProject() {
         //when
-        boolean isRemove = projectRepository.remove(savedProjectSeq);
+        boolean isRemove = projectRepository.removeProject(savedProjectSeq);
 
         //then
         assertThat(isRemove).isTrue();

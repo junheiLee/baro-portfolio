@@ -77,10 +77,9 @@ public class ProjectController {
                            Model model, @PathVariable int projectSeq) {
         ProjectInfo projectInfo = projectService.read(projectSeq);
 
-        if (!projectInfo.getContributors().contains(account.getSeq())) {
+        if (isStranger(account, projectSeq)) {
             throw new RuntimeException("임시");
         }
-
 
         EditProjectDto dto = new EditProjectDto();
         String myPart = projectService.findMyPart(account.getSeq(), projectSeq);
@@ -96,9 +95,8 @@ public class ProjectController {
                        @Valid @ModelAttribute EditProjectDto editProjectDto,
                        BindingResult result, @PathVariable int projectSeq) {
 
-        List<Integer> currentContributors = projectService.findContributors(projectSeq);
 
-        if (!currentContributors.contains(account.getSeq())) {
+        if (isStranger(account, projectSeq)) {
             throw new RuntimeException("임시");
         }
 
@@ -119,4 +117,22 @@ public class ProjectController {
                 && projectDateDto.getEnd() != null
                 && projectDateDto.getStart().after(projectDateDto.getEnd());
     }
+
+    @PostMapping("/{projectSeq}/delete")
+    public String delete(@Current Account account,
+                         @PathVariable int projectSeq){
+
+        if (isStranger(account, projectSeq)) {
+            throw new RuntimeException("임시");
+        }
+
+        projectService.delete(account.getSeq(), projectSeq);
+        return "redirect:/";
+    }
+
+    private boolean isStranger(Account account, int projectSeq) {
+        return !projectService.findContributors(projectSeq).contains(account.getSeq());
+    }
+
+
 }

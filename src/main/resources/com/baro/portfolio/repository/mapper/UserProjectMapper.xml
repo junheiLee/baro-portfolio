@@ -29,4 +29,11 @@
         where nProjectSeq = #{projectSeq}
     </update>
 
+    <delete id="remove">
+        delete
+        from tUserProject
+        where nUserSeq = #{userSeq}
+          and nProjectSeq = #{projectSeq}
+    </delete>
+
 </mapper>
