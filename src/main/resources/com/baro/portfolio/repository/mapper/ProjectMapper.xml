@@ -21,10 +21,16 @@
                sTitle       as title,
                sDescription as description,
                dtStart      as start,
-               dtEnd as end, nHeadcount as headcount,
-               sArchitecture as architecture, sErd as erd, sMainfunction as mainFunction,
-               sInterest as interest, sGithub as github, bIsPublic as isPublic,
-               dtCreatedAt as createdAt
+               dtEnd as end,
+                nHeadcount as headcount,
+                sArchitecture as architecture,
+                sErd as erd,
+                sMainfunction as mainFunction,
+                sInterest as interest,
+                sGithub as github,
+                bIsPublic as isPublic,
+                bIsProceeding as isProceeding,
+                dtCreatedAt as createdAt
         from tProject
         where nProjectSeq = #{seq}
     </select>

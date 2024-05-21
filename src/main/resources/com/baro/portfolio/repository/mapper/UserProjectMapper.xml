@@ -10,4 +10,10 @@
 
     </insert>
 
+    <select id="findUserByProjectSeq" resultType="Integer">
+        select nUserSeq
+        from tUserproject
+        where nProjectSeq = #{projectSeq}
+    </select>
+
 </mapper>

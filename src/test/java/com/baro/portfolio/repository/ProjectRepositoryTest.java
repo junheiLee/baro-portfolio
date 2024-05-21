@@ -27,7 +27,7 @@ class ProjectRepositoryTest {
                 .start(Date.valueOf("2024-05-10")).end(Date.valueOf("2024-05-16"))
                 .headcount(1).description("project repository test").build();
 
-        projectRepository.save(project);
+        projectRepository.save(1, project, "myPart");
         savedProjectSeq = project.getSeq();
     }
 

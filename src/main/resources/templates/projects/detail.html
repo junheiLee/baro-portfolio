@@ -13,57 +13,54 @@
 <body>
 
 <div class="container">
+    <div class="py-5 text-left">
+        <h2 th:text="${projectInfo.title}"></h2>
+    </div>
     <div>
-        <div>
-            <label for="title">title</label>
-            <input type="text" id="title" name="title" class="form-control"
-                   th:value="${projectDto.title}" readonly>
-        </div>
-
         <div>
             <label for="description">description</label>
             <textarea type="text" id="description" name="description" class="form-control"
-                      th:value="${projectDto.title}" readonly></textarea>
+                      th:text="${projectInfo.description}" readonly></textarea>
         </div>
 
         <div>
-            <label>기간</label>
-            <span th:text="${projectDto.start}" ~ th:value="${projectDto.end}"></span>
-            <span th:if="${projectDto.isProceeding eq 1}"> | 진행 중 </span>
+            <label>기간: </label>
+            <span th:text="|${projectInfo.start} &sim; ${projectInfo.end}|"></span>
+            <span th:if="${projectInfo.isProceeding eq 1}"> | 진행 중 </span>
         </div>
 
         <div>
-            <label>인원</label>
-            <p> th:value="${projectDto.headcount}" </p>
-            <ul th:each="contributor : ${projectDto.contributors}">
-                <li><a th:href="@{/{contributorSeq}(contributorSeq=${contributor.seq})}">
-                    th:text="${contributor.nickname}</a></li>
+            <label>인원: </label>
+            <span th:text="${projectInfo.headcount}"> </span>
+<!--            <ul th:each="contributor : ${projectInfo.contributors}">-->
+<!--                <li><a th:href="@{/{contributorSeq}(contributorSeq=${contributor.seq})}">-->
+<!--                    th:text="${contributor.nickname}</a></li>-->
+<!--            </ul>-->
+            <ul th:each="contributor : ${projectInfo.contributors}">
+                <li><a th:href="@{/users/{contributor}(contributor=${contributor})}"> user </a></li>
             </ul>
         </div>
 
         <div>
             <label for="mainFunction">mainFunction</label>
             <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
-                      th:value="${projectDto.mainFunction}" readonly></textarea>
+                      th:text="${projectInfo.mainFunction}" readonly></textarea>
         </div>
 
         <div>
             <label for="interest">interest</label>
             <textarea type="text" id="interest" name="interest" class="form-control"
-                      th:value="${projectDto.interest}" readonly></textarea>
+                      th:text="${projectInfo.interest}" readonly></textarea>
         </div>
 
         <div>
-            <label>github</label>
-            <p><a th:href="@{${link}(link=${projectDto.github})}">
-                th:text="${projectDto.github}"</a></p>
+            <label>github :</label>
+            <span><a th:href="@{${projectInfo.github}}" >
+                th:text="${projectInfo.github}"</a></span>
         </div>
 
     </div>
     <hr class="my-4">
-    <div>
-        대충 참여 인원
-    </div>
 
 
 </div>

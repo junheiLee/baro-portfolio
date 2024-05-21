@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -30,20 +31,26 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public Optional<Project> findBySeq(Integer seq) {
+    public Optional<Project> findBySeq(int seq) {
 
         return this.projectMapper.findBySeq(seq);
     }
 
     @Override
-    public int update(Integer seq, Project project) {
+    public int update(int seq, Project project) {
 
         return this.projectMapper.update(seq, project);
     }
 
     @Override
-    public boolean remove(Integer seq) {
+    public boolean remove(int seq) {
 
         return this.projectMapper.remove(seq) == 1;
+    }
+
+    @Override
+    public List<Integer> findContributorsBySeq(int seq) {
+
+        return this.userProjectMapper.findUserByProjectSeq(seq);
     }
 }

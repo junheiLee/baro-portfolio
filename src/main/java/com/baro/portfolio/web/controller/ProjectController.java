@@ -1,10 +1,10 @@
 package com.baro.portfolio.web.controller;
 
-import com.baro.portfolio.domain.Project;
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.ProjectRequestDto;
-import com.baro.portfolio.domain.Account;
+import com.baro.portfolio.web.dto.result.ProjectInfo;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +57,17 @@ public class ProjectController {
     @GetMapping("/{projectSeq}")
     public String readProject(@Current Account account, Model model, @PathVariable int projectSeq) {
 
-        //TODO
-        // - 로그인한 사용자 확인, 비공개 포트폴리오면 contributor만 열람 가능
-        log.info("readProject 호출");
-        Project project = projectService.read(projectSeq);
+        ProjectInfo projectInfo = projectService.read(projectSeq);
+
+        if (isInaccessible(account.getSeq(), projectInfo)) {
+            throw new RuntimeException("임시");
+        }
+
+        model.addAttribute("projectInfo", projectInfo);
         return "projects/detail";
+    }
+
+    private static boolean isInaccessible(int accountSeq, ProjectInfo projectInfo) {
+        return !projectInfo.isPublic() && !projectInfo.getContributors().contains(accountSeq);
     }
 }
