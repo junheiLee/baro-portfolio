@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -32,8 +29,9 @@ public class AccountController {
     }
 
     @PostMapping("/sign-in")
-    public String signIn(@Valid @ModelAttribute SignInDto dto,
-                         BindingResult result, HttpServletRequest request) {
+    public String signIn(@Valid @ModelAttribute SignInDto dto, BindingResult result,
+                         @RequestParam(defaultValue = "/") String redirectUrl,
+                         HttpServletRequest request) {
 
         if (result.hasErrors()) {
             return "users/signInForm";
@@ -47,7 +45,8 @@ public class AccountController {
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("accountInfo", accountInfo.get());
-        return "redirect:/";
+        session.setAttribute("account", accountInfo.get());
+
+        return "redirect:" + redirectUrl;
     }
 }

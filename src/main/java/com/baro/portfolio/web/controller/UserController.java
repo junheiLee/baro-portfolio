@@ -1,8 +1,10 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.UserService;
+import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
+import com.baro.portfolio.web.dto.result.AccountInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
@@ -63,7 +65,8 @@ public class UserController {
 
     @PostMapping("/{userSeq}/edit")
     public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto dto,
-                       BindingResult result, @PathVariable int userSeq) {
+                       BindingResult result, @PathVariable int userSeq,
+                       @Current AccountInfo accountInfo) {
 
         log.info("editUserDto={}", dto.toString());
 
