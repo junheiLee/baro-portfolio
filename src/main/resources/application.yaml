@@ -11,5 +11,11 @@ spring:
     username: root
     password: jhlee
 
+server:
+  servlet:
+    session:
+      tracking-modes: cookie
+      timeout: 60
+
 mybatis:
   type-aliases-package: com.baro.portfolio.domain
