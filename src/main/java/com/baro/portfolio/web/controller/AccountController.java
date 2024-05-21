@@ -2,7 +2,7 @@ package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.SignInDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -39,7 +39,7 @@ public class AccountController {
             return "users/signInForm";
         }
 
-        Optional<AccountInfo> accountInfo = userService.signIn(dto);
+        Optional<Account> accountInfo = userService.signIn(dto);
 
         if (accountInfo.isEmpty()) {
             result.reject("loginFail", "아이디 혹은 비밀 번호가 일치하지 않습니다.");

@@ -4,7 +4,7 @@ import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
@@ -56,9 +56,9 @@ public class UserController {
 
     //todo: 로그인 계정과 일치하는 seq만 수정 가능
     @GetMapping("/{userSeq}/edit")
-    public String portFolio(Model model, @PathVariable int userSeq, @Current AccountInfo accountInfo) {
+    public String portFolio(Model model, @PathVariable int userSeq, @Current Account account) {
 
-        if (accountInfo.getSeq() != userSeq) {
+        if (account.getSeq() != userSeq) {
             throw new RuntimeException("임시");
         }
 
@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("/{userSeq}/edit")
     public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto dto,
                        BindingResult result, @PathVariable int userSeq,
-                       @Current AccountInfo accountInfo) {
+                       @Current Account account) {
 
         log.info("editUserDto={}", dto.toString());
 

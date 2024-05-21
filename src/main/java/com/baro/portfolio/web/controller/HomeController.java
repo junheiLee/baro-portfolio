@@ -1,7 +1,7 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.web.argumentresolver.Current;
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @GetMapping("/")
-    public String home(@Current AccountInfo accountInfo, Model model) {
+    public String home(@Current Account account, Model model) {
 
-        if (accountInfo == null) {
+        if (account == null) {
             return "home";
         }
 
-        model.addAttribute("account", accountInfo);
-        return "forward:/users/" + accountInfo.getSeq();
+        model.addAttribute("account", account);
+        return "forward:/users/" + account.getSeq();
     }
 
 }

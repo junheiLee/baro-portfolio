@@ -3,7 +3,7 @@ package com.baro.portfolio.service.itf;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.web.dto.result.UserInfo;
 
 import java.util.Optional;
@@ -18,7 +18,7 @@ public interface UserService {
 
     boolean isPhoneDuplicated(String phone);
 
-    Optional<AccountInfo> signIn(SignInDto dto);
+    Optional<Account> signIn(SignInDto dto);
 
     UserInfo findBySeq(int seq);
 

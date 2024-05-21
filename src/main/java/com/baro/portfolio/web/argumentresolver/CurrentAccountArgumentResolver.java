@@ -1,6 +1,6 @@
 package com.baro.portfolio.web.argumentresolver;
 
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.core.MethodParameter;
@@ -16,7 +16,7 @@ public class CurrentAccountArgumentResolver
     public boolean supportsParameter(MethodParameter parameter) {
 
         boolean hasCurrentAnnotation = parameter.hasParameterAnnotation(Current.class);
-        boolean hasAccountInfoType = AccountInfo.class.isAssignableFrom(parameter.getParameterType());
+        boolean hasAccountInfoType = Account.class.isAssignableFrom(parameter.getParameterType());
 
         return hasCurrentAnnotation && hasAccountInfoType;
     }

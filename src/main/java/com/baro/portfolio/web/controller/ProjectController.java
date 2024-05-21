@@ -4,12 +4,13 @@ import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.ProjectRequestDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
+import com.baro.portfolio.domain.Account;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +27,13 @@ public class ProjectController {
     }
 
     @GetMapping("/add")
-    public String createForm(@ModelAttribute("projectRequestDto") ProjectRequestDto projectRequestDto) {
+    public String createForm(@ModelAttribute ProjectRequestDto projectRequestDto) {
         return "projects/createForm";
     }
 
     @PostMapping("/add")
-    public String createProject(@Valid @ModelAttribute("projectRequestDto") ProjectRequestDto projectRequestDto,
-                                BindingResult result, @Current AccountInfo accountInfo) {
+    public String createProject(@Valid @ModelAttribute ProjectRequestDto projectRequestDto,
+                                BindingResult result, @Current Account account) {
 
         if (isImpossibleDateSet(projectRequestDto)) {
             result.reject("canNotExistDateSet", "시작 날짜는 종료 날짜보다 과거여야 합니다.");
@@ -42,17 +43,19 @@ public class ProjectController {
             return "projects/createForm";
         }
 
-        int createdSeq = projectService.save(accountInfo.getSeq(), projectRequestDto);
+        int createdSeq = projectService.save(account.getSeq(), projectRequestDto);
         return "redirect:/projects/" + createdSeq;
     }
 
     private static boolean isImpossibleDateSet(ProjectRequestDto projectRequestDto) {
-        return projectRequestDto.getStart() != null && projectRequestDto.getEnd() != null && projectRequestDto.getStart().after(projectRequestDto.getEnd());
+        return projectRequestDto.getStart() != null
+                && projectRequestDto.getEnd() != null
+                && projectRequestDto.getStart().after(projectRequestDto.getEnd());
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{projectSeq}")
-    public String readProject(@PathVariable int projectSeq) {
+    public String readProject(@Current Account account, Model model, @PathVariable int projectSeq) {
 
         //TODO
         // - 로그인한 사용자 확인, 비공개 포트폴리오면 contributor만 열람 가능
