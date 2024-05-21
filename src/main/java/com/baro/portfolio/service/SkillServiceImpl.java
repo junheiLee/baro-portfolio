@@ -34,7 +34,7 @@ public class SkillServiceImpl implements SkillService {
     public String findBySeq(Integer seq) {
 
         Skill skill = skillRepository.findBySeq(seq)
-                .orElseThrow(() -> new RuntimeException("exception handler 만들어야하나?"));
+                .orElseThrow(() -> new RuntimeException("임시"));
 
         return skill.getName();
     }

@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo findBySeq(int seq) {
 
         Optional<User> userOptional = userRepository.findBySeq(seq);
-        User user = userOptional.orElseThrow();
+        User user = userOptional.orElseThrow(() -> new RuntimeException("임시"));
 
         return UserInfo.builder()
                 .seq(seq)
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     public EditUserDto findEditUserBySeq(int seq) {
 
         Optional<User> userOptional = userRepository.findBySeq(seq);
-        User user = userOptional.orElseThrow();
+        User user = userOptional.orElseThrow(() -> new RuntimeException("임시"));
 
         return EditUserDto.builder()
                 .nickname(user.getNickname())

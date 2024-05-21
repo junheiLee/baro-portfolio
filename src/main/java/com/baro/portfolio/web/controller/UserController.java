@@ -56,7 +56,12 @@ public class UserController {
 
     //todo: 로그인 계정과 일치하는 seq만 수정 가능
     @GetMapping("/{userSeq}/edit")
-    public String portFolio(Model model, @PathVariable int userSeq) {
+    public String portFolio(Model model, @PathVariable int userSeq, @Current AccountInfo accountInfo) {
+
+        if (accountInfo.getSeq() != userSeq) {
+            throw new RuntimeException("임시");
+        }
+
         EditUserDto dto = userService.findEditUserBySeq(userSeq);
         model.addAttribute("editUserDto", dto);
 

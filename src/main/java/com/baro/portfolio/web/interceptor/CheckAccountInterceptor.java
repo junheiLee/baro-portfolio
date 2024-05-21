@@ -15,7 +15,6 @@ public class CheckAccountInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
 
         String requestUrl = request.getRequestURI();
-        log.info("requestUrl={}", requestUrl);
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("account") == null) {
