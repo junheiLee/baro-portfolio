@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ProjectRepository {
 
-    int save(Project project);
+    int save(int userSeq, Project project, String myPart);
 
     Optional<Project> findBySeq(Integer seq);
 

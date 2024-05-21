@@ -7,18 +7,21 @@ import com.baro.portfolio.web.dto.ProjectRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
 
+    @Transactional
     @Override
-    public int save(ProjectRequestDto dto) {
+    public int save(int userSeq, ProjectRequestDto dto) {
 
-        return projectRepository.save(dto.setIsProceeding().toEntity());
+        return projectRepository.save(userSeq, dto.toProjectEntity(), dto.getMyPart());
     }
 
     @Override

@@ -6,19 +6,22 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="seq">
         insert into tProject(sTitle, sDescription, dtStart, dtEnd,
-                             nHeadcount,sArchitecture, sErd, sMainFunction,
-                             sInterest, sGithub, bIsPublic)
+        nHeadcount,sArchitecture, sErd, sMainFunction,
+        sInterest, sGithub, bIsPublic)
         values (#{title}, #{description}, #{start}, #{end},
-                #{headcount}, #{architecture}, #{erd}, #{mainFunction},
-                #{interest}, #{github}, #{isPublic})
+        #{headcount}, #{architecture}, #{erd}, #{mainFunction},
+        #{interest}, #{github}, #{isPublic})
         <selectKey keyProperty="seq" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
         </selectKey>
     </insert>
 
     <select id="findBySeq" resultType="Project">
-        select nProjectSeq as seq, sTitle as title, sDescription as description,
-               dtStart as start, dtEnd as end, nHeadcount as headcount,
+        select nProjectSeq  as seq,
+               sTitle       as title,
+               sDescription as description,
+               dtStart      as start,
+               dtEnd as end, nHeadcount as headcount,
                sArchitecture as architecture, sErd as erd, sMainfunction as mainFunction,
                sInterest as interest, sGithub as github, bIsPublic as isPublic,
                dtCreatedAt as createdAt
@@ -43,7 +46,8 @@
     </update>
 
     <delete id="remove">
-        delete from tProject
+        delete
+        from tProject
         where nProjectSeq = #{seq}
     </delete>
 </mapper>

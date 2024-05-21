@@ -2,9 +2,7 @@ package com.baro.portfolio.service;
 
 import com.baro.portfolio.domain.Skill;
 import com.baro.portfolio.service.itf.SkillService;
-
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;

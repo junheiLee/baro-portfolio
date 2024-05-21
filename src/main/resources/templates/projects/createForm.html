@@ -77,20 +77,20 @@
             <div class="field-error" th:errors="*{headcount}">
             </div>
         </div>
-<!--        <div>-->
-<!--            <label for="architecture">architecture</label>-->
-<!--            <input type="text" id="architecture" th:field="*{architecture}" class="form-control"-->
-<!--                   th:errorclass="field-error">-->
-<!--            <div class="field-error" th:errors="*{architecture}">-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <label for="erd">erd</label>-->
-<!--            <input type="text" id="erd" th:field="*{erd}" class="form-control"-->
-<!--                   th:errorclass="field-error">-->
-<!--            <div class="field-error" th:errors="*{erd}">-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div>-->
+        <!--            <label for="architecture">architecture</label>-->
+        <!--            <input type="text" id="architecture" th:field="*{architecture}" class="form-control"-->
+        <!--                   th:errorclass="field-error">-->
+        <!--            <div class="field-error" th:errors="*{architecture}">-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div>-->
+        <!--            <label for="erd">erd</label>-->
+        <!--            <input type="text" id="erd" th:field="*{erd}" class="form-control"-->
+        <!--                   th:errorclass="field-error">-->
+        <!--            <div class="field-error" th:errors="*{erd}">-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div>
             <label for="mainFunction">mainFunction</label>
             <textarea type="text" id="mainFunction" th:field="*{mainFunction}" class="form-control"
@@ -103,13 +103,20 @@
             <textarea type="text" id="interest" th:field="*{interest}" class="form-control"
                       th:errorclass="field-error" maxlength="1000"></textarea>
             <div class="field-error" th:errors="*{interest}">
-        </div>
+            </div>
         </div>
         <div>
             <label for="github">github</label>
             <input type="text" id="github" th:field="*{github}" class="form-control"
                    th:errorclass="field-error" maxlength="500">
             <div class="field-error" th:errors="*{github}">
+            </div>
+        </div>
+        <div>
+            <label for="myPart">myPart</label>
+            <textarea type="text" id="myPart" th:field="*{myPart}" class="form-control"
+                      th:errorclass="field-error" maxlength="1000"></textarea>
+            <div class="field-error" th:errors="*{myPart}">
             </div>
         </div>
         <hr class="my-4">

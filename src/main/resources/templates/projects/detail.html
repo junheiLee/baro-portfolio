@@ -8,11 +8,6 @@
         .container {
             max-width: 560px;
         }
-
-        .field-error {
-            border-color: #dc3545;
-            color: #dc3545;
-        }
     </style>
 </head>
 <body>
@@ -28,7 +23,7 @@
         <div>
             <label for="description">description</label>
             <textarea type="text" id="description" name="description" class="form-control"
-                   th:value="${projectDto.title}" readonly></textarea>
+                      th:value="${projectDto.title}" readonly></textarea>
         </div>
 
         <div>
@@ -60,8 +55,8 @@
 
         <div>
             <label>github</label>
-            <p> <a th:href="@{${link}(link=${projectDto.github})}">
-                th:text="${projectDto.github}"</a> </p>
+            <p><a th:href="@{${link}(link=${projectDto.github})}">
+                th:text="${projectDto.github}"</a></p>
         </div>
 
     </div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baro.portfolio.repository.mapper.UserProjectMapper">
+
+    <insert id="addContributor">
+        insert into tUserProject(nUserSeq, nProjectSeq, sMyPart)
+        values (#{userSeq}, #{projectSeq}, #{myPart})
+
+    </insert>
+
+</mapper>

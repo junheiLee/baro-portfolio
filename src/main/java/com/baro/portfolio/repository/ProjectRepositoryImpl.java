@@ -3,26 +3,29 @@ package com.baro.portfolio.repository;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.repository.mapper.ProjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baro.portfolio.repository.mapper.UserProjectMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Slf4j
+@RequiredArgsConstructor
 @Repository
 public class ProjectRepositoryImpl implements ProjectRepository {
 
     private final ProjectMapper projectMapper;
-
-    @Autowired
-    public ProjectRepositoryImpl(ProjectMapper projectMapper) {
-
-        this.projectMapper = projectMapper;
-    }
+    private final UserProjectMapper userProjectMapper;
 
     @Override
-    public int save(Project project) {
+    public int save(int userSeq, Project project, String myPart) {
 
         this.projectMapper.save(project);
+        int createdProjectSeq = project.getSeq();
+
+        userProjectMapper.addContributor(userSeq, createdProjectSeq, myPart);
+
         return project.getSeq();
     }
 

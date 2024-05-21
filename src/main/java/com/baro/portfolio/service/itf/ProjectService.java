@@ -5,7 +5,7 @@ import com.baro.portfolio.web.dto.ProjectRequestDto;
 
 public interface ProjectService {
 
-    int save(ProjectRequestDto dto);
+    int save(int userSeq, ProjectRequestDto dto);
 
     Project read(Integer projectSeq);
 }

@@ -2,9 +2,7 @@ package com.baro.portfolio.web.dto;
 
 import com.baro.portfolio.domain.Project;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,14 +14,15 @@ import java.sql.Date;
 
 
 @ToString
-@Getter @Setter
+@Getter
+@Setter
 public class ProjectRequestDto {
 
     @NotBlank(message = "제목은 공백이 아닌 문자로 입력해주세요.")
     @Length(min = 1, max = 20, message = "1 ~ 20자로 작성해주세요.")
     private String title;
 
-    @Length(max=400, message = "400자 이내로 요약해주세요.")
+    @Length(max = 400, message = "400자 이내로 요약해주세요.")
     private String description;
 
     private Boolean isPublic;
@@ -52,15 +51,18 @@ public class ProjectRequestDto {
     @Length(max = 1000, message = "관심사는 1000자 이내로 작성해주세요.")
     private String interest;
 
-    @URL(protocol = "https", host="github.com", message = "깃허브 주소를입력해 주세요")
+    @URL(protocol = "https", host = "github.com", message = "깃허브 주소를입력해 주세요")
     @Length(max = 500, message = "github 링크는 500자 이내로 작성해주세요.")
     private String github;
+
+    @Length(max = 1000, message = "개인 기여는 1000자 이내로 작성해주세요.")
+    private String myPart;
 
     public ProjectRequestDto() {
 
     }
 
-    public Project toEntity() {
+    public Project toProjectEntity() {
 
         return Project.builder().title(title)
                 .description(description)
