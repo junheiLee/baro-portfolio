@@ -3,7 +3,9 @@ package com.baro.portfolio.web.controller;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.result.AccountInfo;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.filter.RequestContextFilter;
 
 import java.util.Optional;
 
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class AccountController {
 
     private final UserService userService;
+    private final RequestContextFilter requestContextFilter;
 
 
     @GetMapping("/sign-in")
@@ -48,5 +52,16 @@ public class AccountController {
         session.setAttribute("account", accountInfo.get());
 
         return "redirect:" + redirectUrl;
+    }
+
+    @GetMapping("/sign-out")
+    public String signOut(HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/";
     }
 }
