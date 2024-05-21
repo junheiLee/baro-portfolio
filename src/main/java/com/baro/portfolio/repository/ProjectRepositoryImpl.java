@@ -37,9 +37,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public int update(int seq, Project project) {
-
-        return this.projectMapper.update(seq, project);
+    public int update(int projectSeq, Project project, int userSeq, String myPart) {
+        userProjectMapper.updateMyPart(userSeq, projectSeq, myPart);
+        return this.projectMapper.update(projectSeq, project);
     }
 
     @Override
@@ -52,5 +52,10 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public List<Integer> findContributorsBySeq(int seq) {
 
         return this.userProjectMapper.findUserByProjectSeq(seq);
+    }
+
+    @Override
+    public String findMyPart(int userSeq, int projectSeq) {
+        return this.userProjectMapper.findMyPart(userSeq, projectSeq);
     }
 }

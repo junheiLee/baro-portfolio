@@ -16,4 +16,17 @@
         where nProjectSeq = #{projectSeq}
     </select>
 
+    <select id="findMyPart" resultType="String">
+        select sMyPart
+        from tUserProject
+        where nUserSeq = #{userSeq}
+          and nProjectSeq = #{projectSeq}
+    </select>
+
+    <update id="updateMyPart">
+        update tUserProject
+        set sMypart=#{myPart}
+        where nProjectSeq = #{projectSeq}
+    </update>
+
 </mapper>

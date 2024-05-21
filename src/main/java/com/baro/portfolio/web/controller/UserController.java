@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/{userSeq}")
-    public String portFolio(@PathVariable int userSeq, Model model) {
+    public String editForm(@PathVariable int userSeq, Model model) {
 
         UserInfo userInfo = userService.findBySeq(userSeq);
         model.addAttribute("userInfo", userInfo);
@@ -56,7 +56,7 @@ public class UserController {
 
     //todo: 로그인 계정과 일치하는 seq만 수정 가능
     @GetMapping("/{userSeq}/edit")
-    public String portFolio(Model model, @PathVariable int userSeq, @Current Account account) {
+    public String editForm(Model model, @PathVariable int userSeq, @Current Account account) {
 
         if (account.getSeq() != userSeq) {
             throw new RuntimeException("임시");
@@ -73,7 +73,9 @@ public class UserController {
                        BindingResult result, @PathVariable int userSeq,
                        @Current Account account) {
 
-        log.info("editUserDto={}", dto.toString());
+        if (account.getSeq() != userSeq) {
+            throw new RuntimeException("임시");
+        }
 
         if (result.hasErrors()) {
             return "users/editForm";

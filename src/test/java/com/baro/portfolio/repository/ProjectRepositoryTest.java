@@ -55,7 +55,7 @@ class ProjectRepositoryTest {
         } catch (Exception ignored) {
         }
 
-        Integer updatedRowCount = projectRepository.update(savedProjectSeq, project);
+        Integer updatedRowCount = projectRepository.update(savedProjectSeq, project, 1, "mypart");
         Project updatedProject = projectRepository.findBySeq(savedProjectSeq).get();
 
         //then

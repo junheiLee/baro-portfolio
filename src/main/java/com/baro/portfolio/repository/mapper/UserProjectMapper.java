@@ -10,4 +10,8 @@ public interface UserProjectMapper {
     void addContributor(int userSeq, int projectSeq, String myPart);
 
     List<Integer> findUserByProjectSeq(int projectSeq);
+
+    String findMyPart(int userSeq, int projectSeq);
+
+    void updateMyPart(int userSeq, int projectSeq, String myPart);
 }

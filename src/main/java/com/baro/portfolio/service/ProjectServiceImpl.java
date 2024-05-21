@@ -3,7 +3,8 @@ package com.baro.portfolio.service;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.service.itf.ProjectService;
-import com.baro.portfolio.web.dto.ProjectRequestDto;
+import com.baro.portfolio.web.dto.CreateProjectDto;
+import com.baro.portfolio.web.dto.EditProjectDto;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Transactional
     @Override
-    public int save(int userSeq, ProjectRequestDto dto) {
+    public int save(int userSeq, CreateProjectDto dto) {
 
-        return projectRepository.save(userSeq, dto.toProjectEntity(), dto.getMyPart());
+        return projectRepository.save(userSeq, dto.editIsProceeding().toProjectEntity(), dto.getMyPart());
     }
 
     @Override
@@ -40,4 +41,21 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projectInfo;
     }
+
+    @Override
+    public List<Integer> findContributors(int projectSeq) {
+        return projectRepository.findContributorsBySeq(projectSeq);
+    }
+
+    @Override
+    public void update(int userSeq, int projectSeq, EditProjectDto dto) {
+        projectRepository.update(projectSeq, dto.editIsProceeding().toProjectEntity(), userSeq, dto.getMyPart());
+    }
+
+    @Override
+    public String findMyPart(int userSeq, int projectSeq) {
+        return projectRepository.findMyPart(userSeq, projectSeq);
+    }
+
+
 }

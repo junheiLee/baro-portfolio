@@ -32,10 +32,10 @@
         <div>
             <label>인원: </label>
             <span th:text="${projectInfo.headcount}"> </span>
-<!--            <ul th:each="contributor : ${projectInfo.contributors}">-->
-<!--                <li><a th:href="@{/{contributorSeq}(contributorSeq=${contributor.seq})}">-->
-<!--                    th:text="${contributor.nickname}</a></li>-->
-<!--            </ul>-->
+            <!--            <ul th:each="contributor : ${projectInfo.contributors}">-->
+            <!--                <li><a th:href="@{/{contributorSeq}(contributorSeq=${contributor.seq})}">-->
+            <!--                    th:text="${contributor.nickname}</a></li>-->
+            <!--            </ul>-->
             <ul th:each="contributor : ${projectInfo.contributors}">
                 <li><a th:href="@{/users/{contributor}(contributor=${contributor})}"> user </a></li>
             </ul>
@@ -55,7 +55,7 @@
 
         <div>
             <label>github :</label>
-            <span><a th:href="@{${projectInfo.github}}" >
+            <span><a th:href="@{${projectInfo.github}}">
                 th:text="${projectInfo.github}"</a></span>
         </div>
 

@@ -6,10 +6,10 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="seq">
         insert into tProject(sTitle, sDescription, dtStart, dtEnd,
-        nHeadcount,sArchitecture, sErd, sMainFunction,
+        bIsProceeding, nHeadcount,sArchitecture, sErd, sMainFunction,
         sInterest, sGithub, bIsPublic)
         values (#{title}, #{description}, #{start}, #{end},
-        #{headcount}, #{architecture}, #{erd}, #{mainFunction},
+        #{isProceeding}, #{headcount}, #{architecture}, #{erd}, #{mainFunction},
         #{interest}, #{github}, #{isPublic})
         <selectKey keyProperty="seq" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
@@ -38,9 +38,11 @@
     <update id="update">
         update tProject
         set sTitle=#{updateParam.title},
+            bIsPublic=#{updateParam.isPublic},
             sDescription=#{updateParam.description},
             dtStart=#{updateParam.start},
             dtEnd=#{updateParam.end},
+            bIsProceeding=#{updateParam.isProceeding},
             nHeadcount=#{updateParam.headcount},
             sArchitecture=#{updateParam.architecture},
             sErd=#{updateParam.erd},
