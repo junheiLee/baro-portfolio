@@ -3,6 +3,7 @@ package com.baro.portfolio.service;
 import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.domain.User;
+import com.baro.portfolio.exception.NotFoundException;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.dto.CreateProjectDto;
@@ -57,7 +58,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectInfo read(int projectSeq) {
 
-        Project project = projectRepository.findBySeq(projectSeq).orElseThrow(() -> new RuntimeException("임시"));
+        Project project = projectRepository.findBySeq(projectSeq)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 프로젝트입니다."));
+
         ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
 
         List<User> users = projectRepository.findContributorsBySeq(projectSeq);

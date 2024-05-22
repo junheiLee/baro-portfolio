@@ -2,6 +2,7 @@ package com.baro.portfolio.service;
 
 import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.domain.User;
+import com.baro.portfolio.exception.NotFoundException;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.EditUserDto;
@@ -65,7 +66,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo findBySeq(int seq) {
 
         Optional<User> userOptional = userRepository.findBySeq(seq);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("임시"));
+        User user = userOptional.orElseThrow(() -> new NotFoundException("존재하지 않는 User 입니다."));
 
         return UserInfo.builder()
                 .seq(seq)
@@ -80,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public EditUserDto findEditUserInfoBySeq(int userSeq) {
 
         Optional<User> userOptional = userRepository.findBySeq(userSeq);
-        User user = userOptional.orElseThrow(() -> new RuntimeException("임시"));
+        User user = userOptional.orElseThrow(() -> new NotFoundException("존재하지 않는 User 입니다."));
 
         return EditUserDto.fromEntity(user);
     }

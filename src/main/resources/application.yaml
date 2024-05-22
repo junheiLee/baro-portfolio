@@ -16,6 +16,13 @@ server:
     session:
       tracking-modes: cookie
       timeout: 60
+  error:
+    include-exception: false
+    include-message: always
+    include-stacktrace: never
+    include-binding-errors: never
+    whitelabel:
+      enabled: true
 
 mybatis:
   type-aliases-package: com.baro.portfolio.domain

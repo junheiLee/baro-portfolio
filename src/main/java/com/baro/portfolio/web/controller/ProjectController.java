@@ -1,6 +1,7 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.domain.Account;
+import com.baro.portfolio.exception.AuthorityException;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.CreateProjectDto;
@@ -73,7 +74,7 @@ public class ProjectController {
         ProjectInfo projectInfo = projectService.read(projectSeq);
 
         if (isInaccessible(account.getSeq(), projectInfo)) {
-            throw new RuntimeException("임시");
+            throw new AuthorityException("private 프로젝트입니다.");
         }
         model.addAttribute("project", projectInfo);
         return "projects/detail";
@@ -87,11 +88,11 @@ public class ProjectController {
     public String editForm(@Current Account account,
                            Model model, @PathVariable int projectSeq) {
 
-        EditProjectDto dto = projectService.read(account.getSeq(), projectSeq);
-
         if (isStranger(account, projectSeq)) {
-            throw new RuntimeException("임시");
+            throw new AuthorityException("본인이 참여한 프로젝트만 수정할 수 있습니다.");
         }
+
+        EditProjectDto dto = projectService.read(account.getSeq(), projectSeq);
         model.addAttribute("editProjectDto", dto);
 
         return "projects/editForm";
@@ -103,7 +104,7 @@ public class ProjectController {
                        BindingResult result, @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
-            throw new RuntimeException("임시");
+            throw new AuthorityException("본인이 참여한 프로젝트만 수정할 수 있습니다.");
         }
 
         if (isImpossibleDateSet(editProjectDto)) {
@@ -130,7 +131,7 @@ public class ProjectController {
                          @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
-            throw new RuntimeException("임시");
+            throw new AuthorityException("본인이 참여한 프로젝트만 삭제할 수 있습니다.");
         }
 
         projectService.delete(account.getSeq(), projectSeq);

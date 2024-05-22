@@ -1,6 +1,7 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.domain.Account;
+import com.baro.portfolio.exception.AuthorityException;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.argumentresolver.Current;
@@ -68,7 +69,8 @@ public class UserController {
     public String editForm(Model model, @PathVariable int userSeq, @Current Account account) {
 
         if (account.getSeq() != userSeq) {
-            throw new RuntimeException("임시");
+
+            throw new AuthorityException("본인의 정보만 수정할 수 있습니다.");
         }
         EditUserDto dto = userService.findEditUserInfoBySeq(userSeq);
         model.addAttribute("editUserDto", dto);
@@ -83,7 +85,7 @@ public class UserController {
                        @Current Account account) {
 
         if (account.getSeq() != userSeq) {
-            throw new RuntimeException("임시");
+            throw new AuthorityException("본인의 정보만 수정할 수 있습니다.");
         }
 
         if (result.hasErrors()) {

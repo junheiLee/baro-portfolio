@@ -18,7 +18,8 @@ public class User {
     private String introduce;
 
     @Builder
-    public User(String email, String password, String nickname, String name, String phone, String image, String introduce) {
+    public User(Integer seq, String email, String password, String nickname, String name, String phone, String image, String introduce) {
+        this.seq = seq;
         this.email = email;
         this.password = password;
         this.nickname = nickname;
