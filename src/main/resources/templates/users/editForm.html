@@ -23,12 +23,14 @@
 <div class="container">
 
     <div class="py-5 text-center">
-        <h2> Sign Up</h2>
+        <h2> Edit </h2>
     </div>
 
     <h4> 회원 정보 입력 </h4>
 
     <form action="" th:action th:object="${editUserDto}" method="post">
+        <input type="hidden" id="currentNickname" th:field="*{currentNickname}" maxlength="20" class="form-control"
+               th:errorclass="field-error">
 
         <div>
             <label for="nickname">nickname</label>

@@ -70,9 +70,9 @@ public class UserController {
         if (account.getSeq() != userSeq) {
             throw new RuntimeException("임시");
         }
-
         EditUserDto dto = userService.findEditUserInfoBySeq(userSeq);
         model.addAttribute("editUserDto", dto);
+        log.info("editForm editUserDto={}", dto.toString());
 
         return "users/editForm";
     }

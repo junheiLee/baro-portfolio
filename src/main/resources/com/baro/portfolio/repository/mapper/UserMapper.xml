@@ -43,7 +43,7 @@
     <select id="findBySeq" resultType="User">
         select nUserSeq as seq, sName as name, sNickname as nickname, sEmail as email, sIntroduce as introduce
         from tUser
-        where nUserSeq = #{seq}
+        where nUserSeq = #{userSeq}
     </select>
 
     <update id="updateBySeq">
@@ -51,7 +51,7 @@
         set sNickname=#{user.nickname},
             sImage=#{user.image},
             sIntroduce=#{user.introduce}
-        where nUserSeq = #{seq}
+        where nUserSeq = #{userSeq}
     </update>
 
 </mapper>

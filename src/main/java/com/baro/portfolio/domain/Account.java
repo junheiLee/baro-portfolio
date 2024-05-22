@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class Account {
 
     private int seq;

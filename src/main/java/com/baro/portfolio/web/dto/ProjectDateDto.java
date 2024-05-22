@@ -6,7 +6,8 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ProjectDateDto {
 
     @NotNull(message = "시작 날짜는 필수 값입니다.")

@@ -9,7 +9,8 @@ import lombok.ToString;
 
 @ToString
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 public class SignUpDto {
 
     private final static String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@!%*#?&.])[A-Za-z0-9$@!%*#?&.]{8,20}$";

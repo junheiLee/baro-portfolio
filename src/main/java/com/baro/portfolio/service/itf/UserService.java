@@ -14,7 +14,7 @@ public interface UserService {
 
     boolean isEmailDuplicated(String email);
 
-    boolean isNicknameDuplicated(String nickname);
+    boolean isNicknameDuplicated(String nickname, String currentNickname);
 
     boolean isPhoneDuplicated(String phone);
 
