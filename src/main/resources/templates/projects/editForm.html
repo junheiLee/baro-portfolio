@@ -119,6 +119,11 @@
             <div class="field-error" th:errors="*{myPart}">
             </div>
         </div>
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:text="${{#fields.globalErrors()}}"></p>
+        </div>
+
         <hr class="my-4">
         <div class="row">
             <div class="col">
