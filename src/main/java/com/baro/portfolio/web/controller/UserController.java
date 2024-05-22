@@ -1,10 +1,12 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.domain.Account;
+import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
+import com.baro.portfolio.web.dto.result.ProjectInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
@@ -15,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("/users")
@@ -23,6 +27,7 @@ public class UserController {
 
     private final UserValidator userValidator;
     private final UserService userService;
+    private final ProjectService projectService;
 
 //    @InitBinder
 //    public void init(WebDataBinder dataBinder) {
@@ -46,11 +51,11 @@ public class UserController {
     }
 
     @GetMapping("/{userSeq}")
-    public String editForm(@PathVariable int userSeq, Model model) {
+    public String portFolio(@PathVariable int userSeq, Model model) {
 
         UserInfo userInfo = userService.findBySeq(userSeq);
         model.addAttribute("userInfo", userInfo);
-//        ProjectsInfo projectsInfo =
+        List<ProjectInfo> projects = projectService.projects(userSeq, null);
         return "users/portFolio";
     }
 

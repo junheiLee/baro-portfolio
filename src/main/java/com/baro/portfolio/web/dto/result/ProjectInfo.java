@@ -1,10 +1,7 @@
 package com.baro.portfolio.web.dto.result;
 
 import com.baro.portfolio.domain.Project;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -29,19 +26,38 @@ public class ProjectInfo {
     private String github;
     private List<Integer> contributors;
 
-    public void fromEntity(Project project) {
+    @Builder
+    public ProjectInfo(int seq, String title, String description, boolean isPublic,
+                       Date start, Date end, boolean isProceeding, Integer headcount,
+                       String mainFunction, String interest, String github) {
+        this.seq = seq;
+        this.title = title;
+        this.description = description;
+        this.isPublic = isPublic;
+        this.start = start;
+        this.end = end;
+        this.isProceeding = isProceeding;
+        this.headcount = headcount;
+        this.mainFunction = mainFunction;
+        this.interest = interest;
+        this.github = github;
+    }
 
-        this.seq = project.getSeq();
-        this.title = project.getTitle();
-        this.description = project.getDescription();
-        this.isPublic = project.getIsPublic() == 1;
-        this.start = project.getStart();
-        this.end = project.getEnd();
-        this.isProceeding = project.getIsProceeding() == 1;
-        this.headcount = project.getHeadcount();
-        this.mainFunction = project.getMainFunction();
-        this.interest = project.getInterest();
-        this.github = project.getGithub();
+    public static ProjectInfo fromEntity(Project project) {
+
+        return ProjectInfo.builder()
+                .seq(project.getSeq())
+                .title(project.getTitle())
+                .description(project.getDescription())
+                .isPublic(project.getIsPublic() == 1)
+                .start(project.getStart())
+                .end(project.getEnd())
+                .isProceeding(project.getIsProceeding() == 1)
+                .headcount(project.getHeadcount())
+                .mainFunction(project.getMainFunction())
+                .interest(project.getInterest())
+                .github(project.getGithub())
+                .build();
 
     }
 

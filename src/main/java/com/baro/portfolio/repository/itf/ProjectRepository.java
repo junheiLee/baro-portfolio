@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface ProjectRepository {
 
+    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
+
     int save(int userSeq, Project project, String myPart);
 
     Optional<Project> findBySeq(int seq);

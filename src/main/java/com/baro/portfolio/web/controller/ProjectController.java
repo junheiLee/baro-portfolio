@@ -1,7 +1,6 @@
 package com.baro.portfolio.web.controller;
 
 import com.baro.portfolio.domain.Account;
-import com.baro.portfolio.service.UserServiceImpl;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.CreateProjectDto;
@@ -17,20 +16,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Slf4j
 @RequestMapping("/projects")
 @Controller
 public class ProjectController {
 
     private final ProjectService projectService;
-    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    public ProjectController(ProjectService projectService, UserServiceImpl userServiceImpl) {
+    public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
-        this.userServiceImpl = userServiceImpl;
+    }
+
+    @GetMapping("/{userSeq}")
+    public String myProjects(@PathVariable Integer userSeq) {
+        projectService.projects(userSeq, null);
+
+        return "/";
     }
 
     @GetMapping("/add")
@@ -120,7 +122,7 @@ public class ProjectController {
 
     @PostMapping("/{projectSeq}/delete")
     public String delete(@Current Account account,
-                         @PathVariable int projectSeq){
+                         @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
             throw new RuntimeException("임시");

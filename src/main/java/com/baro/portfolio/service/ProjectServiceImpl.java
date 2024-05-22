@@ -21,6 +21,22 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
 
+    @Override
+    public List<ProjectInfo> projects(Integer userSeq, Boolean isPublic) {
+
+        List<Project> projects = projectRepository.findByUserSeqAndIsPublic(userSeq, toInteger(isPublic));
+        return projects.stream().map(ProjectInfo::fromEntity).toList();
+    }
+
+    private Integer toInteger(Boolean isPublic) {
+
+        if (isPublic != null) {
+            return isPublic ? 1 : 0;
+        }
+
+        return null;
+    }
+
     @Transactional
     @Override
     public int save(int userSeq, CreateProjectDto dto) {
@@ -31,10 +47,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectInfo read(Integer projectSeq) {
 
-        ProjectInfo projectInfo = new ProjectInfo();
         Project project = projectRepository.findBySeq(projectSeq).orElseThrow(() -> new RuntimeException("임시"));
 
-        projectInfo.fromEntity(project);
+        ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
         List<Integer> contributors = projectRepository.findContributorsBySeq(projectSeq);
 
         projectInfo.addContributors(contributors);

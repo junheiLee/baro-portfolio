@@ -4,6 +4,24 @@
 
 <mapper namespace="com.baro.portfolio.repository.mapper.ProjectMapper">
 
+    <select id="findByUserSeqAndIsPublic" resultType="Project">
+        select tP.nProjectSeq as seq, tP.sTitle as title,
+               tP.dtStart as start, tP.dtEnd as endd,
+               tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
+               tP.sArchitecture as architecture, tP.sErd as erd,
+               tP.sMainFunction as mainFunction, tP.sInterest as interest,
+               tP.sGithub as github, tP.bIsPublic as isPublic
+        from tProject tP
+            <if test="userSeq != null">
+                JOIN tUserProject tUP
+                ON tUP.nUserSeq = #{userSeq}
+            </if>
+            <if test="isPublic != null">
+                WHERE tP.bIsPublic = #{isPublic}
+            </if>
+    </select>
+
+
     <insert id="save" useGeneratedKeys="true" keyProperty="seq">
         insert into tProject(sTitle, sDescription, dtStart, dtEnd,
         bIsProceeding, nHeadcount,sArchitecture, sErd, sMainFunction,

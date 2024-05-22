@@ -20,6 +20,12 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     private final UserProjectMapper userProjectMapper;
 
     @Override
+    public List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic) {
+
+        return projectMapper.findByUserSeqAndIsPublic(userSeq, isPublic);
+    }
+
+    @Override
     public int save(int userSeq, Project project, String myPart) {
 
         this.projectMapper.save(project);

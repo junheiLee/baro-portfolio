@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ProjectService {
 
+    List<ProjectInfo> projects(Integer userSeq, Boolean isPublic);
+
     int save(int userSeq, CreateProjectDto dto);
 
     ProjectInfo read(Integer projectSeq);

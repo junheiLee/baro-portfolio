@@ -4,10 +4,13 @@ import com.baro.portfolio.domain.Project;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 @Mapper
 public interface ProjectMapper {
+
+    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
 
     void save(Project project);
 
