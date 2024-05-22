@@ -1,16 +1,16 @@
 package com.baro.portfolio.service.itf;
 
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 
 import java.util.Optional;
 
 public interface UserService {
 
-    int signUp(SignUpDto dto);
+    void signUp(SignUpDto dto);
 
     boolean isEmailDuplicated(String email);
 
@@ -18,11 +18,11 @@ public interface UserService {
 
     boolean isPhoneDuplicated(String phone);
 
-    Optional<AccountInfo> signIn(SignInDto dto);
+    Optional<Account> signIn(SignInDto dto);
 
-    UserInfo findBySeq(int seq);
+    UserInfo findBySeq(int userSeq);
 
-    EditUserDto findEditUserBySeq(int seq);
+    EditUserDto findEditUserInfoBySeq(int userSeq);
 
-    void updateBySeq(int seq, EditUserDto dto);
+    void updateBySeq(int userSeq, EditUserDto dto);
 }

@@ -1,28 +1,30 @@
 package com.baro.portfolio.service;
 
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.UserRepository;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignInDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
     @Override
-    public int signUp(SignUpDto dto) {
+    public void signUp(SignUpDto dto) {
 
-        return userRepository.save(dto.toEntity());
+        userRepository.save(dto.toEntity());
     }
 
     @Override
@@ -41,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<AccountInfo> signIn(SignInDto dto) {
+    public Optional<Account> signIn(SignInDto dto) {
 
         Optional<User> userOptional
                 = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
@@ -51,10 +53,9 @@ public class UserServiceImpl implements UserService {
         }
 
         User user = userOptional.get();
-        AccountInfo accountInfo = new AccountInfo(user.getSeq(), user.getEmail());
+        Account account = new Account(user.getSeq(), user.getEmail());
 
-        return Optional.of(accountInfo);
-
+        return Optional.of(account);
     }
 
     @Override
@@ -73,27 +74,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public EditUserDto findEditUserBySeq(int seq) {
+    public EditUserDto findEditUserInfoBySeq(int userSeq) {
 
-        Optional<User> userOptional = userRepository.findBySeq(seq);
+        Optional<User> userOptional = userRepository.findBySeq(userSeq);
         User user = userOptional.orElseThrow(() -> new RuntimeException("임시"));
 
-        return EditUserDto.builder()
-                .nickname(user.getNickname())
-                .introduce(user.getIntroduce())
-                .image(user.getImage())
-                .build();
+        return EditUserDto.fromEntity(user);
     }
 
     @Override
-    public void updateBySeq(int seq, EditUserDto dto) {
+    public void updateBySeq(int userSeq, EditUserDto dto) {
 
-        User user = User.builder()
-                .nickname(dto.getNickname())
-                .image(dto.getImage())
-                .introduce(dto.getIntroduce())
-                .build();
-
-        userRepository.updateBySeq(seq, user);
+        User user = dto.toEntity();
+        userRepository.updateBySeq(userSeq, user);
     }
 }

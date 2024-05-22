@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+
+<button class="btn btn-dark"
+        th:onclick="|location.href='@{/}'|"
+        type="button"> HOME
+</button>
+
+<div class="container" style="max-width:600px">
+
+    <div style="margin-top: 4rem;" class="py-1 text-left">
+        <h2>Projects</h2>
+    </div>
+
+    <div class="row" style="margin-top: 1rem;">
+        <div class="col">
+            <button class="btn btn-dark float-end"
+                    th:onclick="|location.href='@{/projects/add}'|"
+                    type="button"> +
+            </button>
+        </div>
+    </div>
+
+    <div>
+        <ul th:each="project : ${projects}">
+            <li style="margin-top: 2rem;">
+                <hr class="my-4">
+                <a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">
+                    <h5 th:text="${project.title}"></h5>
+                    <span
+                          th:if="${project.isPublic()}"> public </span>
+                    <span
+                          th:unless="${project.isPublic()}"> private </span>
+                    <p th:text="${project.description}"></p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>

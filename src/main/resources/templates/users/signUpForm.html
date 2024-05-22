@@ -6,12 +6,12 @@
           href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
-        max-width: 560px;
+            max-width: 560px;
         }
 
         .field-error {
-        border-color: #dc3545;
-        color: #dc3545;
+            border-color: #dc3545;
+            color: #dc3545;
         }
     </style>
 </head>
@@ -34,7 +34,8 @@
         </div>
         <div>
             <label for="password">password</label>
-            <input type="password" id="password" th:field="*{password}" minlength="8" maxlength="20" class="form-control"
+            <input type="password" id="password" th:field="*{password}" minlength="8" maxlength="20"
+                   class="form-control"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{password}">
             </div>
@@ -55,18 +56,19 @@
         </div>
         <div>
             <label for="phone">phone</label>
-            <input type="text" id="phone" th:field="*{phone}" maxlength="20" class="form-control"  placeholder="000-0000-0000"
+            <input type="text" id="phone" th:field="*{phone}" maxlength="20" class="form-control"
+                   placeholder="000-0000-0000"
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{phone}">
             </div>
         </div>
-<!--        <div>-->
-<!--            <label for="image">image</label>-->
-<!--            <input type="text" id="image" th:field="*{image}" maxlength="500" class="form-control"-->
-<!--                   th:errorclass="field-error">-->
-<!--            <div class="field-error" th:errors="*{image}">-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div>-->
+        <!--            <label for="image">image</label>-->
+        <!--            <input type="text" id="image" th:field="*{image}" maxlength="500" class="form-control"-->
+        <!--                   th:errorclass="field-error">-->
+        <!--            <div class="field-error" th:errors="*{image}">-->
+        <!--            </div>-->
+        <!--        </div>-->
         <div>
             <label for="introduce">introduce</label>
             <textarea type="text" id="introduce" th:field="*{introduce}" maxlength="400" class="form-control"

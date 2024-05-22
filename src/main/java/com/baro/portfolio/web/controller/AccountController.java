@@ -1,11 +1,9 @@
 package com.baro.portfolio.web.controller;
 
+import com.baro.portfolio.domain.Account;
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.SignInDto;
-import com.baro.portfolio.web.dto.result.AccountInfo;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.filter.RequestContextFilter;
 
 import java.util.Optional;
 
@@ -24,11 +21,10 @@ import java.util.Optional;
 public class AccountController {
 
     private final UserService userService;
-    private final RequestContextFilter requestContextFilter;
-
 
     @GetMapping("/sign-in")
     public String signInForm(@ModelAttribute("signInDto") SignInDto dto) {
+
         return "users/signInForm";
     }
 
@@ -41,15 +37,15 @@ public class AccountController {
             return "users/signInForm";
         }
 
-        Optional<AccountInfo> accountInfo = userService.signIn(dto);
+        Optional<Account> account = userService.signIn(dto);
 
-        if (accountInfo.isEmpty()) {
+        if (account.isEmpty()) {
             result.reject("loginFail", "아이디 혹은 비밀 번호가 일치하지 않습니다.");
             return "users/signInForm";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("account", accountInfo.get());
+        session.setAttribute("account", account.get());
 
         return "redirect:" + redirectUrl;
     }

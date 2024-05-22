@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baro.portfolio.repository.mapper.UserProjectMapper">
+
+    <insert id="addContributor">
+        insert into tUserProject(nUserSeq, nProjectSeq, sMyPart)
+        values (#{userSeq}, #{projectSeq}, #{myPart})
+
+    </insert>
+
+    <select id="findUserByProjectSeq" resultType="User">
+        select tUP.nUserSeq as seq, tU.sNickname as nickname
+        from tUserproject tUP
+        join tUser tU
+        on tUP.nUserSeq = tU.nUserSeq
+        where nProjectSeq = #{projectSeq}
+    </select>
+
+    <select id="findMyPart" resultType="String">
+        select sMyPart
+        from tUserProject
+        where nUserSeq = #{userSeq}
+          and nProjectSeq = #{projectSeq}
+    </select>
+
+    <update id="updateMyPart">
+        update tUserProject
+        set sMypart=#{myPart}
+        where nProjectSeq = #{projectSeq}
+    </update>
+
+    <delete id="remove">
+        delete
+        from tUserProject
+        where nUserSeq = #{userSeq}
+          and nProjectSeq = #{projectSeq}
+    </delete>
+
+</mapper>

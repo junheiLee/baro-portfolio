@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baro.portfolio.repository.mapper.ProjectMapper">
+
+    <select id="findByUserSeqAndIsPublic" resultType="Project">
+        select tP.nProjectSeq as seq, tP.sTitle as title,
+               tP.sDescription as description,
+               tP.dtStart as start, tP.dtEnd as end,
+               tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
+               tP.sArchitecture as architecture, tP.sErd as erd,
+               tP.sMainFunction as mainFunction, tP.sInterest as interest,
+               tP.sGithub as github, tP.bIsPublic as isPublic
+        from tProject tP
+        JOIN tUserProject tUP
+        ON tP.nProjectSeq = tUP.nProjectSeq
+        <where>
+            <if test="userSeq != null">
+                and tUP.nUserSeq = #{userSeq}
+            </if>
+            <if test="isPublic != null">
+                and tP.bIsPublic = #{isPublic}
+            </if>
+        </where>
+    </select>
+
+    <select id="findPortfolioProjects" resultType="PortfolioProject">
+        select tP.nProjectSeq as seq, tP.sTitle as title,
+        tP.sDescription as description,
+        tP.dtStart as start, tP.dtEnd as end,
+        tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
+        tP.sArchitecture as architecture, tP.sErd as erd,
+        tP.sMainFunction as mainFunction, tP.sInterest as interest,
+        tP.sGithub as github, tP.bIsPublic as isPublic,
+        tUP.sMyPart as myPart
+        from tProject tP
+        JOIN tUserProject tUP
+        ON tP.nProjectSeq = tUP.nProjectSeq
+            where tUP.nUserSeq = #{userSeq} and tP.bIsPublic = 1
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="seq">
+        insert into tProject(sTitle, sDescription, dtStart, dtEnd,
+        bIsProceeding, nHeadcount,sArchitecture, sErd, sMainFunction,
+        sInterest, sGithub, bIsPublic)
+        values (#{title}, #{description}, #{start}, #{end},
+        #{isProceeding}, #{headcount}, #{architecture}, #{erd}, #{mainFunction},
+        #{interest}, #{github}, #{isPublic})
+        <selectKey keyProperty="seq" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="findBySeq" resultType="Project">
+        select nProjectSeq  as seq,
+               sTitle       as title,
+               sDescription as description,
+               dtStart      as start,
+               dtEnd as end,
+                nHeadcount as headcount,
+                sArchitecture as architecture,
+                sErd as erd,
+                sMainfunction as mainFunction,
+                sInterest as interest,
+                sGithub as github,
+                bIsPublic as isPublic,
+                bIsProceeding as isProceeding,
+                dtCreatedAt as createdAt
+        from tProject
+        where nProjectSeq = #{seq}
+    </select>
+
+    <update id="update">
+        update tProject
+        set sTitle=#{updateParam.title},
+            bIsPublic=#{updateParam.isPublic},
+            sDescription=#{updateParam.description},
+            dtStart=#{updateParam.start},
+            dtEnd=#{updateParam.end},
+            bIsProceeding=#{updateParam.isProceeding},
+            nHeadcount=#{updateParam.headcount},
+            sArchitecture=#{updateParam.architecture},
+            sErd=#{updateParam.erd},
+            sMainFunction=#{updateParam.mainFunction},
+            sInterest=#{updateParam.interest},
+            sGithub=#{updateParam.github},
+            dtModifiedAt= now()
+        where nProjectSeq = #{seq}
+    </update>
+
+    <delete id="remove">
+        delete
+        from tProject
+        where nProjectSeq = #{seq}
+    </delete>
+</mapper>

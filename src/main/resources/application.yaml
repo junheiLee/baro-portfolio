@@ -3,6 +3,8 @@ spring:
     name: portfolio
   profiles:
     active: local
+  messages:
+    basename: messages
 
   datasource:
     url: jdbc:mariadb://localhost:3306/dbbaroportfolio

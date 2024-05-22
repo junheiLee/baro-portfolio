@@ -3,12 +3,13 @@ package com.baro.portfolio.web.dto;
 import com.baro.portfolio.domain.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@Getter
-@Setter
+@NoArgsConstructor
+@Getter @Setter
 public class SignUpDto {
 
     private final static String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@!%*#?&.])[A-Za-z0-9$@!%*#?&.]{8,20}$";
@@ -40,10 +41,6 @@ public class SignUpDto {
 
     @Size(max = 400)
     private String introduce;
-
-    public SignUpDto() {
-
-    }
 
     public User toEntity() {
         return User.builder()

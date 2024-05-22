@@ -13,6 +13,7 @@ CREATE TABLE tUser(
     dtCreatedAt     TIMESTAMP       NOT NULL    DEFAULT NOW(),
     dtModifiedAt    TIMESTAMP       NOT NULL    DEFAULT NOW()
 );
+ALTER TABLE tUser CONVERT TO CHARSET UTF8;
 
 ALTER TABLE tUserProject DROP FOREIGN KEY fkUserProjectContent2;
 ALTER TABLE tProjectSkill DROP FOREIGN KEY fkProjectSkillContent1;
@@ -22,7 +23,8 @@ CREATE TABLE tProject(
     sTitle          VARCHAR(20)     NOT NULL,
     sDescription    VARCHAR(400),
     dtStart         DATE            NOT NULL,
-    dtEnd           DATE            NOT NULL    DEFAULT NOW(),
+    dtEnd           DATE            NOT NULL,
+    bIsProceeding   TINYINT(1)      NOT NULL    DEFAULT 0,
     nHeadcount      SMALLINT        NOT NULL    DEFAULT 1,
     sArchitecture   VARCHAR(500),
     sErd            VARCHAR(500),
@@ -33,6 +35,7 @@ CREATE TABLE tProject(
     dtCreatedAt     TIMESTAMP       NOT NULL    DEFAULT NOW(),
     dtModifiedAt    TIMESTAMP       NOT NULL    DEFAULT NOW()
 );
+ALTER TABLE tProject CONVERT TO CHARSET UTF8;
 
 
 DROP TABLE tUserProject;
@@ -42,6 +45,8 @@ CREATE TABLE tUserProject(
     nProjectSeq         INT         NOT NULL,
     sMyPart             VARCHAR(1000)
 );
+ALTER TABLE tUserProject CONVERT TO CHARSET UTF8;
+
 
 ALTER TABLE tUserProject ADD CONSTRAINT fkUserProjectContent1
 FOREIGN KEY(nUserSeq) REFERENCES tUser(nUserSeq) ON DELETE CASCADE;
@@ -55,6 +60,7 @@ CREATE TABLE tSkill(
     nSkillSeq       INT             PRIMARY KEY AUTO_INCREMENT,
     sName           VARCHAR(40)     UNIQUE
 );
+ALTER TABLE tSkill CONVERT TO CHARSET UTF8;
 
 DROP TABLE tProjectSkill;
 CREATE TABLE tProjectSkill(
@@ -63,6 +69,8 @@ CREATE TABLE tProjectSkill(
     nSkillSeq           INT         NOT NULL,
     sVersion            VARCHAR(10) NOT NULL DEFAULT ''
 );
+ALTER TABLE tProjectSkill CONVERT TO CHARSET UTF8;
+
 
 ALTER TABLE tProjectSkill ADD CONSTRAINT fkProjectSkillContent1
 FOREIGN KEY(nProjectSeq) REFERENCES tProject(nProjectSeq) ON DELETE CASCADE;

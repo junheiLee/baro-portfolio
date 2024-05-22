@@ -36,7 +36,8 @@
     <select id="findByEmailAndPassword" resultType="User">
         select sNickname as nickname, nUserSeq as seq
         from tUser
-        where sEmail = #{email} and sPassword = #{password}
+        where sEmail = #{email}
+          and sPassword = #{password}
     </select>
 
     <select id="findBySeq" resultType="User">
@@ -50,7 +51,7 @@
         set sNickname=#{user.nickname},
             sImage=#{user.image},
             sIntroduce=#{user.introduce}
-        where nUserSeq=#{seq}
+        where nUserSeq = #{seq}
     </update>
 
 </mapper>

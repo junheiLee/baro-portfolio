@@ -41,12 +41,12 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findBySeq(int seq) {
-        return userMapper.findBySeq(seq);
+    public Optional<User> findBySeq(int userSeq) {
+        return userMapper.findBySeq(userSeq);
     }
 
     @Override
-    public void updateBySeq(int seq, User user) {
-        userMapper.updateBySeq(seq, user);
+    public void updateBySeq(int userSeq, User userParam) {
+        userMapper.updateBySeq(userSeq, userParam);
     }
 }

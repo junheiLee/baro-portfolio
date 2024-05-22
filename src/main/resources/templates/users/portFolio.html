@@ -6,7 +6,7 @@
           href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
-        max-width: 560px;
+            max-width: 560px;
         }
     </style>
 </head>
@@ -19,76 +19,118 @@
     </div>
 
     <div>
-        <h4 th:text="|${userInfo.name} 님|" > </h4>
+        <h4 th:text="|${user.name} 님|"></h4>
         <hr class="my-1">
         <div>
             <label for="nickname">nickname</label>
-            <input type="text" id="nickname" th:field="${userInfo.nickname}" class="form-control" readonly>
-            </div>
+            <input type="text" id="nickname" th:field="${user.nickname}" class="form-control" readonly>
         </div>
-        <div>
-            <label for="email">email</label>
-            <input type="text" id="email" th:field="${userInfo.email}" class="form-control" readonly>
+    </div>
+    <div>
+        <label for="email">email</label>
+        <input type="text" id="email" th:field="${user.email}" class="form-control" readonly>
+    </div>
+    <div>
+        <label for="introduce">introduce</label>
+        <textarea type="text" id="introduce" th:field="${user.introduce}" class="form-control" readonly></textarea>
+    </div>
+
+    <div th:if="${session.account.getSeq() eq user.getSeq()}"
+         class="row" style="margin-top: 1rem;">
+        <div class="col">
+            <button class="w-100 btn btn-dark btn-lg" type="button"
+                    th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${user.seq})}'|">
+                edit
+            </button>
         </div>
-        <div>
-            <label for="introduce">introduce</label>
-            <textarea type="text" id="introduce" th:field="${userInfo.introduce}" class="form-control" readonly></textarea>
+        <div class="col">
+            <button class="w-100 btn btn-danger btn-lg" type="button"
+                    th:onclick="|location.href='@{/account/sign-out}'|">
+                sign-out
+            </button>
         </div>
+    </div>
 
 
-<!--        <div th:if="${#projectsInfo.contributors.contains(session.accountInfo.seq)}">-->
-            <div class="row" style="margin-top: 1rem;">
-                <div class="col">
-                    <button class="w-100 btn btn-dark btn-lg" type="button"
-                            th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${userInfo.seq})}'|">
-                        edit
-                    </button>
-                </div>
-            </div>
-<!--        </div>-->
 
+    <div style="margin-top: 2rem;">
+        <h4>Projects</h4>
+        <div class="row" style="margin-top: 1rem;"
+             th:if="${session.account.getSeq() eq user.getSeq()}">
+            <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
 
-        <div style="margin-top: 2rem;">
-            <h4>Projects</h4>
-            <hr class="my-1">
-            <ul th:each="project : ${projectsInfo}">
-                <li>
+                <button class="btn btn-dark"
+                        th:onclick="|location.href='@{/projects}'|"
+                        type="button"> all
+                </button>
 
-                    <div>
-                        <label>요약</label>
-                        <textarea type="text" id="description" name="description" class="form-control"
-                                  th:value="${project.title}" readonly></textarea>
-                    </div>
-                    <div>
-                        <label>기간</label>
-                        <span th:text="${project.start}" ~ th:value="${project.end}"></span>
-                        <span th:if="${project.isProceeding eq 1}"> | 진행 중 </span>
-                    </div>
-                    <div>
-                        <label>인원</label>
-                        <p> th:value="${project.headcount}" </p>
-                    </div>
-                    <div>
-                        <label for="mainFunction">주요 기능</label>
-                        <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
-                                  th:value="${project.mainFunction}" readonly></textarea>
-                    </div>
-                    <div>
-                        개인 기여
-                    </div>
-                </li>
-            </ul>
-        </div>
+                <button class="btn btn-secondary"
+                        th:onclick="|location.href='@{/projects/my}'|"
+                        type="button"> my
+                </button>
 
-        <div class="row" style="margin-top: 1rem;">
-            <div class="col">
-                <button class="w-100 btn btn-dark btn-lg" type="button"
-                        th:onclick="|location.href='@{/projects/edit/{projectSeq}}|">
-                    edit
+                <button class="btn btn-outline-dark"
+                        th:onclick="|location.href='@{/projects/add}'|"
+                        type="button"> +
                 </button>
             </div>
         </div>
+
+        <hr class="my-1">
+
+        <ul th:each="project : ${projects}">
+            <li style="margin-top: 2rem;">
+                <h5 th:text="${project.title}" ></h5>
+                <p><a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">자세히</a></p>
+
+                <div style="margin-top: 0.5rem;">
+                    <label for="description">요약</label>
+                    <textarea type="text" id="description" name="description" class="form-control"
+                              th:text="${project.description}" readonly></textarea>
+                </div>
+                <div style="margin-top: 0.5rem;">
+                    <label>기간: </label>
+                    <span th:text="|${project.start} &sim; ${project.end}|"></span>
+                    <span th:if="${project.isProceeding == true}"> | 진행 중 </span>
+                </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <label>인원: </label>
+                    <span th:text="${project.headcount}"> </span>
+                </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <label for="mainFunction">주요 기능</label>
+                    <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
+                              th:text="${project.mainFunction}" readonly></textarea>
+                </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <label for="myPart">개인 기여</label>
+                    <textarea type="text" id="myPart" name="myPart" class="form-control"
+                              th:text="${project.myPart}" readonly></textarea>
+                </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <label>github</label>
+                    <a th:href="@{${project.github}}"><p th:text="${project.github}"> </p></a>
+                </div>
+
+                <div th:if="${session.account.getSeq() eq user.getSeq()}"
+                     class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-dark btn-sm" type="button"
+                            th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${project.seq})}'|">
+                        edit
+                    </button>
+                </div>
+
+                <hr class="my-2">
+
+            </li>
+        </ul>
     </div>
+
+</div>
 </div>
 
 </body>
