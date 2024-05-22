@@ -1,7 +1,6 @@
 package com.baro.portfolio.repository.mapper;
 
 import com.baro.portfolio.domain.User;
-import com.baro.portfolio.web.dto.result.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

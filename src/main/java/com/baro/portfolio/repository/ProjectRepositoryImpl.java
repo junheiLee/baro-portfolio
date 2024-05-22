@@ -6,7 +6,6 @@ import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.repository.mapper.ProjectMapper;
 import com.baro.portfolio.repository.mapper.UserProjectMapper;
-import com.baro.portfolio.web.dto.result.UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;

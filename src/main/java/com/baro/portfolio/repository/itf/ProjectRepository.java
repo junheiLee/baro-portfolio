@@ -3,7 +3,6 @@ package com.baro.portfolio.repository.itf;
 import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.domain.User;
-import com.baro.portfolio.web.dto.result.UserInfo;
 
 import java.util.List;
 import java.util.Optional;
