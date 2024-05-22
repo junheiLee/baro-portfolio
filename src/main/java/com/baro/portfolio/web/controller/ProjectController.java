@@ -17,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+
 @Slf4j
 @RequestMapping("/projects")
 @Controller
@@ -29,10 +32,22 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/my")
-    public String myProjects() {
+    @GetMapping
+    public String projects(@Current Account account, Model model) {
 
-        return "/";
+        List<ProjectInfo> projects = projectService.projects(null, true);
+        model.addAttribute("projects", projects);
+
+        return "projects/list";
+    }
+
+    @GetMapping("/my")
+    public String myProjects(@Current Account account, Model model) {
+
+        List<ProjectInfo> projects = projectService.projects(account.getSeq(), null);
+        model.addAttribute("projects", projects);
+
+        return "projects/list";
     }
 
     @GetMapping("/add")

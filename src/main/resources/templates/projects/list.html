@@ -1,34 +1,41 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <meta charset="UTF-8">
-    <link href="/css" rel="stylesheet">
-    <Title> projects</Title>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
 </head>
 <body>
 <div class="container" style="max-width:600px">
-    <div class="py-5 text-left">
+
+    <div style="margin-top: 4rem;" class="py-1 text-left">
         <h2>Projects</h2>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-top: 1rem;">
         <div class="col">
             <button class="btn btn-dark float-end"
-                    onclick="location.href='createForm.html"
-                    th:onclick="|location.href=@{/projects}|"
+                    th:onclick="|location.href='@{/projects/add}'|"
                     type="button"> +
             </button>
         </div>
     </div>
 
-    <hr class="my-4">
     <div>
-        <table class="table">
-            <tr th:each="project : ${projects}">
-
-            </tr>
-        </table>
+        <ul th:each="project : ${projects}">
+            <li style="margin-top: 2rem;">
+                <hr class="my-4">
+                <a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">
+                    <h5 th:text="${project.title}"></h5>
+                    <p th:text="${project.description}"></p>
+                </a>
+            </li>
+        </ul>
     </div>
 
 </div>
