@@ -13,59 +13,67 @@
 <body>
 
 <div class="container">
-    <div class="py-5 text-left">
+    <div class="py-1 text-left">
         <h2 th:text="${projectInfo.title}"></h2>
     </div>
+
+
     <div>
-        <div>
+        <div th:if="${projectInfo.getContributorsSeq().contains(session.account.getSeq())}"
+             class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <button class="btn btn-secondary btn-sm me-md-2" type="submit"
+                    th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${projectInfo.seq})}'|">
+                수정
+            </button>
+
             <form th:action="@{/projects/{projectSeq}/delete(projectSeq=${projectInfo.seq})}" method="post">
-                <button class="w-100 btn btn-danger btn-lg" type="submit"> 삭제 </button>
+                <button class="btn btn-danger btn-sm" type="submit"> 삭제</button>
             </form>
         </div>
-        <div>
+
+        <hr class="my-1">
+
+        <div style="margin-top: 0.5rem;">
             <label for="description">description</label>
             <textarea type="text" id="description" name="description" class="form-control"
                       th:text="${projectInfo.description}" readonly></textarea>
         </div>
 
-        <div>
+        <div style="margin-top: 0.5rem;">
             <label>기간: </label>
             <span th:text="|${projectInfo.start} &sim; ${projectInfo.end}|"></span>
             <span th:if="${projectInfo.isProceeding eq 1}"> | 진행 중 </span>
         </div>
 
-        <div>
+        <div style="margin-top: 0.5rem;">
             <label>인원: </label>
             <span th:text="${projectInfo.headcount}"> </span>
-            <!--            <ul th:each="contributor : ${projectInfo.contributors}">-->
-            <!--                <li><a th:href="@{/{contributorSeq}(contributorSeq=${contributor.seq})}">-->
-            <!--                    th:text="${contributor.nickname}</a></li>-->
-            <!--            </ul>-->
             <ul th:each="contributor : ${projectInfo.contributors}">
-                <li><a th:href="@{/users/{contributor}(contributor=${contributor})}"> user </a></li>
+                <li><a th:href="@{/users/{contributor}(contributor=${contributor.getSeq()})}">
+                    <span th:text="${contributor.getNickname()}"></span> </a>
+                </li>
             </ul>
         </div>
 
-        <div>
+        <div style="margin-top: 0.5rem;">
             <label for="mainFunction">mainFunction</label>
             <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
                       th:text="${projectInfo.mainFunction}" readonly></textarea>
         </div>
 
-        <div>
+        <div style="margin-top: 0.5rem;">
             <label for="interest">interest</label>
             <textarea type="text" id="interest" name="interest" class="form-control"
                       th:text="${projectInfo.interest}" readonly></textarea>
         </div>
 
-        <div>
-            <label>github :</label>
-            <span><a th:href="@{${projectInfo.github}}">
-                th:text="${projectInfo.github}"</a></span>
+        <div style="margin-top: 0.5rem;">
+            <label>github</label>
+            <a th:href="@{${projectInfo.github}}"><p th:text="${projectInfo.github}"></p></a>
         </div>
 
     </div>
-    <hr class="my-4">
 
 
 </div>

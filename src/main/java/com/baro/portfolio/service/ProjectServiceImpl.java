@@ -2,12 +2,14 @@ package com.baro.portfolio.service;
 
 import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
+import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.dto.CreateProjectDto;
 import com.baro.portfolio.web.dto.EditProjectDto;
 import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
     public List<PortfolioProjectInfo> portfolioProjects(int userSeq) {
 
         List<PortfolioProject> projects = projectRepository.findPortfolioProjects(userSeq);
-        return projects.stream().map(project -> PortfolioProjectInfo.fromEntity(project)).toList();
+        return projects.stream().map(PortfolioProjectInfo::fromEntity).toList();
     }
 
     @Override
@@ -58,9 +60,10 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectInfo read(Integer projectSeq) {
 
         Project project = projectRepository.findBySeq(projectSeq).orElseThrow(() -> new RuntimeException("임시"));
-
         ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
-        List<Integer> contributors = projectRepository.findContributorsBySeq(projectSeq);
+
+        List<User> users = projectRepository.findContributorsBySeq(projectSeq);
+        List<UserInfo> contributors = users.stream().map(UserInfo::fromEntity).toList();
 
         projectInfo.addContributors(contributors);
 
@@ -68,8 +71,10 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Integer> findContributors(int projectSeq) {
-        return projectRepository.findContributorsBySeq(projectSeq);
+    public List<UserInfo> findContributors(int projectSeq) {
+        List<User> users = projectRepository.findContributorsBySeq(projectSeq);
+
+        return users.stream().map(UserInfo::fromEntity).toList();
     }
 
     @Override

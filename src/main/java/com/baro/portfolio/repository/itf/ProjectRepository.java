@@ -2,6 +2,8 @@ package com.baro.portfolio.repository.itf;
 
 import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
+import com.baro.portfolio.domain.User;
+import com.baro.portfolio.web.dto.result.UserInfo;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +22,7 @@ public interface ProjectRepository {
 
     boolean removeProject(int seq);
 
-    List<Integer> findContributorsBySeq(int seq);
+    List<User> findContributorsBySeq(int seq);
 
     String findMyPart(int userSeq, int projectSeq);
 

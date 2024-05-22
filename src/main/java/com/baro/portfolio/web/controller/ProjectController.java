@@ -7,6 +7,7 @@ import com.baro.portfolio.web.dto.CreateProjectDto;
 import com.baro.portfolio.web.dto.EditProjectDto;
 import com.baro.portfolio.web.dto.ProjectDateDto;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,7 @@ public class ProjectController {
     }
 
     @GetMapping("/my")
-    public String myProjects(@PathVariable Integer userSeq) {
-        projectService.projects(userSeq, null);
+    public String myProjects() {
 
         return "/";
     }
@@ -65,13 +65,12 @@ public class ProjectController {
         if (isInaccessible(account.getSeq(), projectInfo)) {
             throw new RuntimeException("임시");
         }
-
         model.addAttribute("projectInfo", projectInfo);
         return "projects/detail";
     }
 
     private static boolean isInaccessible(int accountSeq, ProjectInfo projectInfo) {
-        return !projectInfo.isPublic() && !projectInfo.getContributors().contains(accountSeq);
+        return !projectInfo.isPublic() && !projectInfo.getContributorsSeq().contains(accountSeq);
     }
 
     @GetMapping("/{projectSeq}/edit")
@@ -133,7 +132,9 @@ public class ProjectController {
     }
 
     private boolean isStranger(Account account, int projectSeq) {
-        return !projectService.findContributors(projectSeq).contains(account.getSeq());
+        return !projectService.findContributors(projectSeq)
+                .stream().map(UserInfo::getSeq).toList()
+                .contains(account.getSeq());
     }
 
 

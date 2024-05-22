@@ -2,6 +2,7 @@ package com.baro.portfolio.web.dto;
 
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -58,7 +59,7 @@ public class EditProjectDto extends ProjectDateDto {
     @Length(max = 1000, message = "개인 기여는 1000자 이내로 작성해주세요.")
     private String myPart;
 
-    private List<Integer> contributors;
+    private List<UserInfo> contributors;
 
 
     public Project toProjectEntity() {

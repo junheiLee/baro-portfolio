@@ -4,6 +4,7 @@ import com.baro.portfolio.web.dto.CreateProjectDto;
 import com.baro.portfolio.web.dto.EditProjectDto;
 import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
+import com.baro.portfolio.web.dto.result.UserInfo;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface ProjectService {
 
     ProjectInfo read(Integer projectSeq);
 
-    List<Integer> findContributors(int projectSeq);
+    List<UserInfo> findContributors(int projectSeq);
 
     void update(int userSeq, int projectSeq, EditProjectDto dto);
 

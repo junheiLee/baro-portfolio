@@ -56,7 +56,6 @@ public class UserController {
         UserInfo userInfo = userService.findBySeq(userSeq);
         List<PortfolioProjectInfo> projects = projectService.portfolioProjects(userSeq);
 
-        log.info("projects={}", projects);
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("projects", projects);
 

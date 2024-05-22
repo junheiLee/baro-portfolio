@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.filter.RequestContextFilter;
 
 import java.util.Optional;
 
@@ -22,8 +21,6 @@ import java.util.Optional;
 public class AccountController {
 
     private final UserService userService;
-    private final RequestContextFilter requestContextFilter;
-
 
     @GetMapping("/sign-in")
     public String signInForm(@ModelAttribute("signInDto") SignInDto dto) {

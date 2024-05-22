@@ -2,9 +2,11 @@ package com.baro.portfolio.repository;
 
 import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
+import com.baro.portfolio.domain.User;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.repository.mapper.ProjectMapper;
 import com.baro.portfolio.repository.mapper.UserProjectMapper;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -73,7 +75,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public List<Integer> findContributorsBySeq(int seq) {
+    public List<User> findContributorsBySeq(int seq) {
 
         return this.userProjectMapper.findUserByProjectSeq(seq);
     }

@@ -1,5 +1,6 @@
 package com.baro.portfolio.web.dto.result;
 
+import com.baro.portfolio.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,15 @@ public class UserInfo {
         this.nickname = nickname;
         this.email = email;
         this.introduce = introduce;
+    }
+
+    public static UserInfo fromEntity(User user) {
+        return UserInfo.builder()
+                .seq(user.getSeq())
+                .name(user.getName())
+                .nickname(user.getNickname())
+                .email(user.getIntroduce())
+                .introduce(user.getIntroduce())
+                .build();
     }
 }

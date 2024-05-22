@@ -1,5 +1,7 @@
 package com.baro.portfolio.repository.mapper;
 
+import com.baro.portfolio.domain.User;
+import com.baro.portfolio.web.dto.result.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -9,7 +11,7 @@ public interface UserProjectMapper {
 
     void addContributor(int userSeq, int projectSeq, String myPart);
 
-    List<Integer> findUserByProjectSeq(int projectSeq);
+    List<User> findUserByProjectSeq(int projectSeq);
 
     String findMyPart(int userSeq, int projectSeq);
 

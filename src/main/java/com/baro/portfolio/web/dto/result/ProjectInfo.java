@@ -24,7 +24,8 @@ public class ProjectInfo {
     private String mainFunction;
     private String interest;
     private String github;
-    private List<Integer> contributors;
+    private List<UserInfo> contributors;
+    private List<Integer> contributorsSeq;
 
     @Builder
     public ProjectInfo(int seq, String title, String description, boolean isPublic,
@@ -61,9 +62,10 @@ public class ProjectInfo {
 
     }
 
-    public void addContributors(List<Integer> newContributors) {
+    public void addContributors(List<UserInfo> newContributors) {
 
         this.contributors = new ArrayList<>(newContributors);
+        this.contributorsSeq = this.contributors.stream().map(UserInfo::getSeq).toList();
     }
 
 }

@@ -35,9 +35,8 @@
         <textarea type="text" id="introduce" th:field="${userInfo.introduce}" class="form-control" readonly></textarea>
     </div>
 
-
-    <!--        <div th:if="${#projectsInfo.contributors.contains(session.accountInfo.seq)}">-->
-    <div class="row" style="margin-top: 1rem;">
+    <div th:if="${session.account.getSeq() eq userInfo.getSeq()}"
+         class="row" style="margin-top: 1rem;">
         <div class="col">
             <button class="w-100 btn btn-dark btn-lg" type="button"
                     th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${userInfo.seq})}'|">
@@ -45,16 +44,16 @@
             </button>
         </div>
     </div>
-    <!--        </div>-->
-
 
     <div style="margin-top: 2rem;">
         <h4>Projects</h4>
         <hr class="my-1">
+
         <ul th:each="project : ${projects}">
             <li style="margin-top: 2rem;">
                 <h5 th:text="${project.title}" ></h5>
                 <p><a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">자세히</a></p>
+
                 <div style="margin-top: 0.5rem;">
                     <label for="description">요약</label>
                     <textarea type="text" id="description" name="description" class="form-control"
@@ -88,13 +87,15 @@
                     <a th:href="@{${project.github}}"><p th:text="${project.github}"> </p></a>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div th:if="${session.account.getSeq() eq userInfo.getSeq()}"
+                     class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-dark btn-sm" type="button"
                             th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${project.seq})}'|">
                         edit
                     </button>
                 </div>
 
+                <hr class="my-2">
 
             </li>
         </ul>
