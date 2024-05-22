@@ -9,7 +9,6 @@
                tP.sDescription as description,
                tP.dtStart as start, tP.dtEnd as end,
                tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
-               tP.sArchitecture as architecture, tP.sErd as erd,
                tP.sMainFunction as mainFunction, tP.sInterest as interest,
                tP.sGithub as github, tP.bIsPublic as isPublic
         from tProject tP
@@ -30,7 +29,6 @@
         tP.sDescription as description,
         tP.dtStart as start, tP.dtEnd as end,
         tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
-        tP.sArchitecture as architecture, tP.sErd as erd,
         tP.sMainFunction as mainFunction, tP.sInterest as interest,
         tP.sGithub as github, tP.bIsPublic as isPublic,
         tUP.sMyPart as myPart
@@ -42,10 +40,10 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="seq">
         insert into tProject(sTitle, sDescription, dtStart, dtEnd,
-        bIsProceeding, nHeadcount,sArchitecture, sErd, sMainFunction,
+        bIsProceeding, nHeadcount, sMainFunction,
         sInterest, sGithub, bIsPublic)
         values (#{title}, #{description}, #{start}, #{end},
-        #{isProceeding}, #{headcount}, #{architecture}, #{erd}, #{mainFunction},
+        #{isProceeding}, #{headcount}, #{mainFunction},
         #{interest}, #{github}, #{isPublic})
         <selectKey keyProperty="seq" resultType="int" order="AFTER">
             select LAST_INSERT_ID()
@@ -59,8 +57,6 @@
                dtStart      as start,
                dtEnd as end,
                 nHeadcount as headcount,
-                sArchitecture as architecture,
-                sErd as erd,
                 sMainfunction as mainFunction,
                 sInterest as interest,
                 sGithub as github,
@@ -80,13 +76,11 @@
             dtEnd=#{updateParam.end},
             bIsProceeding=#{updateParam.isProceeding},
             nHeadcount=#{updateParam.headcount},
-            sArchitecture=#{updateParam.architecture},
-            sErd=#{updateParam.erd},
             sMainFunction=#{updateParam.mainFunction},
             sInterest=#{updateParam.interest},
             sGithub=#{updateParam.github},
             dtModifiedAt= now()
-        where nProjectSeq = #{projectSeq
+        where nProjectSeq = #{projectSeq}
     </update>
 
     <delete id="remove">

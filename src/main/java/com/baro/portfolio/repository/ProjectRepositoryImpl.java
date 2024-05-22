@@ -36,9 +36,9 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     @Override
     public int save(int userSeq, Project project, String myPart) {
 
+        projectMapper.save(project);
         int createdProjectSeq = project.getSeq();
 
-        projectMapper.save(project);
         userProjectMapper.addContributor(userSeq, createdProjectSeq, myPart);
 
         return project.getSeq();

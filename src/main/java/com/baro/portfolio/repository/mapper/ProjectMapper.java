@@ -15,7 +15,7 @@ public interface ProjectMapper {
 
     List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
 
-    void save(Project project);
+    int save(Project project);
 
     Optional<Project> findBySeq(int projectSeq);
 
