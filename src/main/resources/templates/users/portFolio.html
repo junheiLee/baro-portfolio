@@ -51,43 +51,55 @@
     <div style="margin-top: 2rem;">
         <h4>Projects</h4>
         <hr class="my-1">
-        <ul th:each="project : ${projectsInfo}">
-            <li>
-
-                <div>
-                    <label>요약</label>
+        <ul th:each="project : ${projects}">
+            <li style="margin-top: 2rem;">
+                <h5 th:text="${project.title}" ></h5>
+                <p><a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">자세히</a></p>
+                <div style="margin-top: 0.5rem;">
+                    <label for="description">요약</label>
                     <textarea type="text" id="description" name="description" class="form-control"
-                              th:value="${project.title}" readonly></textarea>
+                              th:text="${project.description}" readonly></textarea>
                 </div>
-                <div>
-                    <label>기간</label>
-                    <span th:text="${project.start}" ~ th:value="${project.end}"></span>
-                    <span th:if="${project.isProceeding eq 1}"> | 진행 중 </span>
+                <div style="margin-top: 0.5rem;">
+                    <label>기간: </label>
+                    <span th:text="|${project.start} &sim; ${project.end}|"></span>
+                    <span th:if="${project.isProceeding == true}"> | 진행 중 </span>
                 </div>
-                <div>
-                    <label>인원</label>
-                    <p> th:value="${project.headcount}" </p>
+
+                <div style="margin-top: 0.5rem;">
+                    <label>인원: </label>
+                    <span th:text="${project.headcount}"> </span>
                 </div>
-                <div>
+
+                <div style="margin-top: 0.5rem;">
                     <label for="mainFunction">주요 기능</label>
                     <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
-                              th:value="${project.mainFunction}" readonly></textarea>
+                              th:text="${project.mainFunction}" readonly></textarea>
                 </div>
-                <div>
-                    개인 기여
+
+                <div style="margin-top: 0.5rem;">
+                    <label for="myPart">개인 기여</label>
+                    <textarea type="text" id="myPart" name="myPart" class="form-control"
+                              th:text="${project.myPart}" readonly></textarea>
                 </div>
+
+                <div style="margin-top: 0.5rem;">
+                    <label>github</label>
+                    <a th:href="@{${project.github}}"><p th:text="${project.github}"> </p></a>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-dark btn-sm" type="button"
+                            th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${project.seq})}'|">
+                        edit
+                    </button>
+                </div>
+
+
             </li>
         </ul>
     </div>
 
-    <div class="row" style="margin-top: 1rem;">
-        <div class="col">
-            <button class="w-100 btn btn-dark btn-lg" type="button"
-                    th:onclick="|location.href='@{/projects/edit/{projectSeq}}|">
-                edit
-            </button>
-        </div>
-    </div>
 </div>
 </div>
 

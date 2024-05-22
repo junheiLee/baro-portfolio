@@ -2,11 +2,14 @@ package com.baro.portfolio.service.itf;
 
 import com.baro.portfolio.web.dto.CreateProjectDto;
 import com.baro.portfolio.web.dto.EditProjectDto;
+import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
 
 import java.util.List;
 
 public interface ProjectService {
+
+    List<PortfolioProjectInfo> portfolioProjects(int userSeq);
 
     List<ProjectInfo> projects(Integer userSeq, Boolean isPublic);
 

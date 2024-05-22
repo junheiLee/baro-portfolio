@@ -6,7 +6,7 @@ import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.argumentresolver.Current;
 import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.result.ProjectInfo;
+import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import com.baro.portfolio.web.validation.UserValidator;
 import jakarta.validation.Valid;
@@ -54,8 +54,12 @@ public class UserController {
     public String portFolio(@PathVariable int userSeq, Model model) {
 
         UserInfo userInfo = userService.findBySeq(userSeq);
+        List<PortfolioProjectInfo> projects = projectService.portfolioProjects(userSeq);
+
+        log.info("projects={}", projects);
         model.addAttribute("userInfo", userInfo);
-        List<ProjectInfo> projects = projectService.projects(userSeq, null);
+        model.addAttribute("projects", projects);
+
         return "users/portFolio";
     }
 

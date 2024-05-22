@@ -1,5 +1,6 @@
 package com.baro.portfolio.repository.itf;
 
+import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Optional;
 public interface ProjectRepository {
 
     List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
+
+    List<PortfolioProject> findPortfolioProjects(int userSeq);
 
     int save(int userSeq, Project project, String myPart);
 

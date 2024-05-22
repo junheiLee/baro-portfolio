@@ -28,7 +28,7 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/{userSeq}")
+    @GetMapping("/my")
     public String myProjects(@PathVariable Integer userSeq) {
         projectService.projects(userSeq, null);
 

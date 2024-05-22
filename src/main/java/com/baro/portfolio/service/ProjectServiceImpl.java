@@ -1,10 +1,12 @@
 package com.baro.portfolio.service;
 
+import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.service.itf.ProjectService;
 import com.baro.portfolio.web.dto.CreateProjectDto;
 import com.baro.portfolio.web.dto.EditProjectDto;
+import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +24,19 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
 
     @Override
+    public List<PortfolioProjectInfo> portfolioProjects(int userSeq) {
+
+        List<PortfolioProject> projects = projectRepository.findPortfolioProjects(userSeq);
+        return projects.stream().map(project -> PortfolioProjectInfo.fromEntity(project)).toList();
+    }
+
+    @Override
     public List<ProjectInfo> projects(Integer userSeq, Boolean isPublic) {
 
         List<Project> projects = projectRepository.findByUserSeqAndIsPublic(userSeq, toInteger(isPublic));
         return projects.stream().map(ProjectInfo::fromEntity).toList();
     }
+
 
     private Integer toInteger(Boolean isPublic) {
 

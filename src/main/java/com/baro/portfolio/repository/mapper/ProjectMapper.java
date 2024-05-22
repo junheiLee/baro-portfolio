@@ -1,5 +1,6 @@
 package com.baro.portfolio.repository.mapper;
 
+import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,6 +12,8 @@ import java.util.Optional;
 public interface ProjectMapper {
 
     List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
+
+    List<PortfolioProject> findPortfolioProjects(int userSeq);
 
     void save(Project project);
 

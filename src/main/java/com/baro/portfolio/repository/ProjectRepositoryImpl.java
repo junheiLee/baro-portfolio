@@ -1,5 +1,6 @@
 package com.baro.portfolio.repository;
 
+import com.baro.portfolio.domain.PortfolioProject;
 import com.baro.portfolio.domain.Project;
 import com.baro.portfolio.repository.itf.ProjectRepository;
 import com.baro.portfolio.repository.mapper.ProjectMapper;
@@ -23,6 +24,11 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     public List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic) {
 
         return projectMapper.findByUserSeqAndIsPublic(userSeq, isPublic);
+    }
+
+    @Override
+    public List<PortfolioProject> findPortfolioProjects(int userSeq) {
+        return projectMapper.findPortfolioProjects(userSeq);
     }
 
     @Override
