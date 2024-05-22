@@ -39,9 +39,9 @@
                 <a th:href="@{/projects/{projectSeq}(projectSeq=${project.seq})}">
                     <h5 th:text="${project.title}"></h5>
                     <span
-                          th:if="${project.isPublic()}"> public </span>
+                            th:if="${project.isPublic()}"> public </span>
                     <span
-                          th:unless="${project.isPublic()}"> private </span>
+                            th:unless="${project.isPublic()}"> private </span>
                     <p th:text="${project.description}"></p>
                 </a>
             </li>

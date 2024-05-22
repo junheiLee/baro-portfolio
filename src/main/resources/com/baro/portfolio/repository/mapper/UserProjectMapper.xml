@@ -13,8 +13,8 @@
     <select id="findUserByProjectSeq" resultType="User">
         select tUP.nUserSeq as seq, tU.sNickname as nickname
         from tUserproject tUP
-        join tUser tU
-        on tUP.nUserSeq = tU.nUserSeq
+                 join tUser tU
+                      on tUP.nUserSeq = tU.nUserSeq
         where nProjectSeq = #{projectSeq}
     </select>
 

@@ -6,11 +6,11 @@
 
     <select id="findByUserSeqAndIsPublic" resultType="Project">
         select tP.nProjectSeq as seq, tP.sTitle as title,
-               tP.sDescription as description,
-               tP.dtStart as start, tP.dtEnd as end,
-               tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
-               tP.sMainFunction as mainFunction, tP.sInterest as interest,
-               tP.sGithub as github, tP.bIsPublic as isPublic
+        tP.sDescription as description,
+        tP.dtStart as start, tP.dtEnd as end,
+        tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
+        tP.sMainFunction as mainFunction, tP.sInterest as interest,
+        tP.sGithub as github, tP.bIsPublic as isPublic
         from tProject tP
         JOIN tUserProject tUP
         ON tP.nProjectSeq = tUP.nProjectSeq
@@ -25,17 +25,19 @@
     </select>
 
     <select id="findPortfolioProjects" resultType="PortfolioProject">
-        select tP.nProjectSeq as seq, tP.sTitle as title,
-        tP.sDescription as description,
-        tP.dtStart as start, tP.dtEnd as end,
+        select tP.nProjectSeq  as seq,
+               tP.sTitle       as title,
+               tP.sDescription as description,
+               tP.dtStart      as start,
+               tP.dtEnd as end,
         tP.bIsProceeding as isProceeding, tP.nHeadcount as headcount,
         tP.sMainFunction as mainFunction, tP.sInterest as interest,
         tP.sGithub as github, tP.bIsPublic as isPublic,
         tUP.sMyPart as myPart
         from tProject tP
-        JOIN tUserProject tUP
+            JOIN tUserProject tUP
         ON tP.nProjectSeq = tUP.nProjectSeq
-            where tUP.nUserSeq = #{userSeq} and tP.bIsPublic = 1
+        where tUP.nUserSeq = #{userSeq} and tP.bIsPublic = 1
     </select>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="seq">

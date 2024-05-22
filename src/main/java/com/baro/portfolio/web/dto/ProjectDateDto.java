@@ -10,9 +10,9 @@ import java.sql.Date;
 @Setter
 public class ProjectDateDto {
 
-    @NotNull(message = "시작 날짜는 필수 값입니다.")
+    @NotNull
     protected Date start;
 
-    @NotNull(message = "종료 날짜는 필수 값입니다.")
+    @NotNull
     protected Date end;
 }
