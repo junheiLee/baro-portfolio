@@ -9,9 +9,8 @@ import com.baro.portfolio.web.dto.ProjectDateDto;
 import com.baro.portfolio.web.dto.result.ProjectInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,19 +20,15 @@ import java.util.List;
 
 
 @Slf4j
-@RequestMapping("/projects")
+@RequiredArgsConstructor
 @Controller
+@RequestMapping("/projects")
 public class ProjectController {
 
     private final ProjectService projectService;
 
-    @Autowired
-    public ProjectController(ProjectService projectService) {
-        this.projectService = projectService;
-    }
-
     @GetMapping
-    public String projects(@Current Account account, Model model) {
+    public String projects(Model model) {
 
         List<ProjectInfo> projects = projectService.projects(null, true);
         model.addAttribute("projects", projects);
@@ -52,6 +47,7 @@ public class ProjectController {
 
     @GetMapping("/add")
     public String createForm(@ModelAttribute CreateProjectDto createProjectDto) {
+
         return "projects/createForm";
     }
 
@@ -71,7 +67,6 @@ public class ProjectController {
         return "redirect:/projects/" + createdSeq;
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{projectSeq}")
     public String readProject(@Current Account account, Model model, @PathVariable int projectSeq) {
 
@@ -91,16 +86,12 @@ public class ProjectController {
     @GetMapping("/{projectSeq}/edit")
     public String editForm(@Current Account account,
                            Model model, @PathVariable int projectSeq) {
-        ProjectInfo projectInfo = projectService.read(projectSeq);
+
+        EditProjectDto dto = projectService.read(account.getSeq(), projectSeq);
 
         if (isStranger(account, projectSeq)) {
             throw new RuntimeException("임시");
         }
-
-        EditProjectDto dto = new EditProjectDto();
-        String myPart = projectService.findMyPart(account.getSeq(), projectSeq);
-
-        dto.setMyPart(myPart).fromProjectInfo(projectInfo);
         model.addAttribute("editProjectDto", dto);
 
         return "projects/editForm";
@@ -110,7 +101,6 @@ public class ProjectController {
     public String edit(@Current Account account,
                        @Valid @ModelAttribute EditProjectDto editProjectDto,
                        BindingResult result, @PathVariable int projectSeq) {
-
 
         if (isStranger(account, projectSeq)) {
             throw new RuntimeException("임시");
@@ -129,6 +119,7 @@ public class ProjectController {
     }
 
     private static boolean isImpossibleDateSet(ProjectDateDto projectDateDto) {
+
         return projectDateDto.getStart() != null
                 && projectDateDto.getEnd() != null
                 && projectDateDto.getStart().after(projectDateDto.getEnd());
@@ -147,6 +138,7 @@ public class ProjectController {
     }
 
     private boolean isStranger(Account account, int projectSeq) {
+
         return !projectService.findContributors(projectSeq)
                 .stream().map(UserInfo::getSeq).toList()
                 .contains(account.getSeq());

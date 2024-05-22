@@ -15,7 +15,6 @@ public class HomeController {
         if (account == null) {
             return "home";
         }
-
         model.addAttribute("account", account);
         return "forward:/users/" + account.getSeq();
     }

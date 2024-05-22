@@ -18,8 +18,8 @@ public interface UserMapper {
 
     Optional<User> findByEmailAndPassword(String email, String password);
 
-    Optional<User> findBySeq(int seq);
+    Optional<User> findBySeq(int userSeq);
 
-    void updateBySeq(int seq, User user);
+    void updateBySeq(int userSeq, User user);
 
 }

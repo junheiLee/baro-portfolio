@@ -9,23 +9,24 @@ import java.util.Optional;
 
 public interface ProjectRepository {
 
-    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
-
     List<PortfolioProject> findPortfolioProjects(int userSeq);
+
+    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
 
     int save(int userSeq, Project project, String myPart);
 
-    Optional<Project> findBySeq(int seq);
-
-    int update(int projectSeq, Project project, int userSeq, String myPart);
-
-    boolean removeProject(int seq);
-
-    List<User> findContributorsBySeq(int seq);
+    Optional<Project> findBySeq(int projectSeq);
 
     String findMyPart(int userSeq, int projectSeq);
+
+    List<User> findContributorsBySeq(int projectSeq);
+
+    int update(int projectSeq, Project project, int userSeq, String myPart);
 
     void removeContributor(int userSeq, int projectSeq);
 
     int countContributors(int projectSeq);
+
+    boolean removeProject(int projectSeq);
+
 }

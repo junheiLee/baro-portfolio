@@ -24,6 +24,7 @@ public class AccountController {
 
     @GetMapping("/sign-in")
     public String signInForm(@ModelAttribute("signInDto") SignInDto dto) {
+
         return "users/signInForm";
     }
 
@@ -36,15 +37,15 @@ public class AccountController {
             return "users/signInForm";
         }
 
-        Optional<Account> accountInfo = userService.signIn(dto);
+        Optional<Account> account = userService.signIn(dto);
 
-        if (accountInfo.isEmpty()) {
+        if (account.isEmpty()) {
             result.reject("loginFail", "아이디 혹은 비밀 번호가 일치하지 않습니다.");
             return "users/signInForm";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("account", accountInfo.get());
+        session.setAttribute("account", account.get());
 
         return "redirect:" + redirectUrl;
     }

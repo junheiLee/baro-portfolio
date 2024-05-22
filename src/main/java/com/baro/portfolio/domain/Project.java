@@ -1,15 +1,12 @@
 package com.baro.portfolio.domain;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
-@ToString
-@EqualsAndHashCode
+@NoArgsConstructor
 @Getter
 public class Project {
 
@@ -26,12 +23,6 @@ public class Project {
     private String mainFunction;
     private String interest;
     private String github;
-    private Timestamp createdAt;
-    private Timestamp modifiedAt;
-
-    public Project() {
-
-    }
 
     @Builder
     public Project(String title, Integer isPublic,

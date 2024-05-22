@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,13 +30,14 @@ public class UserController {
     private final UserService userService;
     private final ProjectService projectService;
 
-//    @InitBinder
-//    public void init(WebDataBinder dataBinder) {
-//        dataBinder.addValidators(userValidator);
-//    }
+    @InitBinder({"signUpDto", "editUserDto"})
+    public void init(WebDataBinder dataBinder) {
+        dataBinder.addValidators(userValidator);
+    }
 
     @GetMapping("/sign-up")
     public String singUpForm(@ModelAttribute("signUpDto") SignUpDto signUpDto) {
+
         return "users/signUpForm";
     }
 
@@ -45,8 +47,8 @@ public class UserController {
         if (result.hasErrors()) {
             return "users/signUpForm";
         }
-
         userService.signUp(signUpDto);
+
         return "redirect:/";
     }
 
@@ -69,14 +71,14 @@ public class UserController {
             throw new RuntimeException("임시");
         }
 
-        EditUserDto dto = userService.findEditUserBySeq(userSeq);
-        model.addAttribute("editUser", dto);
+        EditUserDto dto = userService.findEditUserInfoBySeq(userSeq);
+        model.addAttribute("editUserDto", dto);
 
         return "users/editForm";
     }
 
     @PostMapping("/{userSeq}/edit")
-    public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto dto,
+    public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto editUserDto,
                        BindingResult result, @PathVariable int userSeq,
                        @Current Account account) {
 
@@ -87,8 +89,8 @@ public class UserController {
         if (result.hasErrors()) {
             return "users/editForm";
         }
+        userService.updateBySeq(userSeq, editUserDto);
 
-        userService.updateBySeq(userSeq, dto);
         return "redirect:/users/" + userSeq;
     }
 }

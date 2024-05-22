@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Slf4j
+@Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Service
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
@@ -39,25 +39,23 @@ public class ProjectServiceImpl implements ProjectService {
         return projects.stream().map(ProjectInfo::fromEntity).toList();
     }
 
-
     private Integer toInteger(Boolean isPublic) {
 
         if (isPublic != null) {
             return isPublic ? 1 : 0;
         }
-
         return null;
     }
 
-    @Transactional
     @Override
+    @Transactional
     public int save(int userSeq, CreateProjectDto dto) {
 
         return projectRepository.save(userSeq, dto.editIsProceeding().toProjectEntity(), dto.getMyPart());
     }
 
     @Override
-    public ProjectInfo read(Integer projectSeq) {
+    public ProjectInfo read(int projectSeq) {
 
         Project project = projectRepository.findBySeq(projectSeq).orElseThrow(() -> new RuntimeException("임시"));
         ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
@@ -71,26 +69,29 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<UserInfo> findContributors(int projectSeq) {
-        List<User> users = projectRepository.findContributorsBySeq(projectSeq);
+    public EditProjectDto read(int userSeq, int projectSeq) {
 
-        return users.stream().map(UserInfo::fromEntity).toList();
+        EditProjectDto dto = new EditProjectDto(read(projectSeq));
+        String myPart = projectRepository.findMyPart(userSeq, projectSeq);
+        dto.setMyPart(myPart);
+
+        return dto;
     }
 
+
     @Override
+    @Transactional
     public void update(int userSeq, int projectSeq, EditProjectDto dto) {
-        projectRepository.update(projectSeq, dto.editIsProceeding().toProjectEntity(), userSeq, dto.getMyPart());
+
+        Project updateParam = dto.editIsProceeding().toProjectEntity();
+        projectRepository.update(projectSeq, updateParam, userSeq, dto.getMyPart());
     }
 
     @Override
-    public String findMyPart(int userSeq, int projectSeq) {
-        return projectRepository.findMyPart(userSeq, projectSeq);
-    }
-
-    @Override
+    @Transactional
     public void delete(int userSeq, int projectSeq) {
-        projectRepository.removeContributor(userSeq, projectSeq);
 
+        projectRepository.removeContributor(userSeq, projectSeq);
         int remainContributor = projectRepository.countContributors(projectSeq);
 
         if (remainContributor == 0) {
@@ -98,5 +99,12 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    @Override
+    public List<UserInfo> findContributors(int projectSeq) {
+
+        List<User> users = projectRepository.findContributorsBySeq(projectSeq);
+
+        return users.stream().map(UserInfo::fromEntity).toList();
+    }
 
 }

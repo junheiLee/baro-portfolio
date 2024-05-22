@@ -11,17 +11,17 @@ import java.util.Optional;
 @Mapper
 public interface ProjectMapper {
 
-    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
-
     List<PortfolioProject> findPortfolioProjects(int userSeq);
+
+    List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic);
 
     void save(Project project);
 
-    Optional<Project> findBySeq(Integer seq);
+    Optional<Project> findBySeq(int projectSeq);
 
     Integer update(@Param("seq") Integer seq,
                    @Param("updateParam") Project project);
 
-    Integer remove(Integer seq);
+    Integer remove(Integer projectSeq);
 
 }

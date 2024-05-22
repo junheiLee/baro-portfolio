@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    int signUp(SignUpDto dto);
+    void signUp(SignUpDto dto);
 
     boolean isEmailDuplicated(String email);
 
@@ -20,9 +20,9 @@ public interface UserService {
 
     Optional<Account> signIn(SignInDto dto);
 
-    UserInfo findBySeq(int seq);
+    UserInfo findBySeq(int userSeq);
 
-    EditUserDto findEditUserBySeq(int seq);
+    EditUserDto findEditUserInfoBySeq(int userSeq);
 
-    void updateBySeq(int seq, EditUserDto dto);
+    void updateBySeq(int userSeq, EditUserDto dto);
 }

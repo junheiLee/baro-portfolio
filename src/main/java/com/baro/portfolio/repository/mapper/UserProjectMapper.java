@@ -16,5 +16,5 @@ public interface UserProjectMapper {
 
     void updateMyPart(int userSeq, int projectSeq, String myPart);
 
-    int remove(int userSeq, int projectSeq);
+    void remove(int userSeq, int projectSeq);
 }

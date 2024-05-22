@@ -14,12 +14,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
 @Repository
+@RequiredArgsConstructor
 public class ProjectRepositoryImpl implements ProjectRepository {
 
     private final ProjectMapper projectMapper;
     private final UserProjectMapper userProjectMapper;
+
+    @Override
+    public List<PortfolioProject> findPortfolioProjects(int userSeq) {
+
+        return projectMapper.findPortfolioProjects(userSeq);
+    }
 
     @Override
     public List<Project> findByUserSeqAndIsPublic(Integer userSeq, Integer isPublic) {
@@ -28,59 +34,56 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public List<PortfolioProject> findPortfolioProjects(int userSeq) {
-        return projectMapper.findPortfolioProjects(userSeq);
-    }
-
-    @Override
     public int save(int userSeq, Project project, String myPart) {
 
-        this.projectMapper.save(project);
         int createdProjectSeq = project.getSeq();
 
+        projectMapper.save(project);
         userProjectMapper.addContributor(userSeq, createdProjectSeq, myPart);
 
         return project.getSeq();
     }
 
     @Override
-    public Optional<Project> findBySeq(int seq) {
+    public Optional<Project> findBySeq(int projectSeq) {
 
-        return this.projectMapper.findBySeq(seq);
+        return projectMapper.findBySeq(projectSeq);
+    }
+
+    @Override
+    public String findMyPart(int userSeq, int projectSeq) {
+
+        return userProjectMapper.findMyPart(userSeq, projectSeq);
+    }
+
+    @Override
+    public List<User> findContributorsBySeq(int projectSeq) {
+
+        return userProjectMapper.findUserByProjectSeq(projectSeq);
     }
 
     @Override
     public int update(int projectSeq, Project project, int userSeq, String myPart) {
+
         userProjectMapper.updateMyPart(userSeq, projectSeq, myPart);
-        return this.projectMapper.update(projectSeq, project);
-    }
-
-    @Override
-    public boolean removeProject(int seq) {
-
-        return this.projectMapper.remove(seq) == 1;
+        return projectMapper.update(projectSeq, project);
     }
 
     @Override
     public void removeContributor(int userSeq, int projectSeq) {
 
-        this.userProjectMapper.remove(userSeq, projectSeq);
+        userProjectMapper.remove(userSeq, projectSeq);
     }
 
     @Override
     public int countContributors(int projectSeq) {
 
-        return this.userProjectMapper.findUserByProjectSeq(projectSeq).size();
+        return userProjectMapper.findUserByProjectSeq(projectSeq).size();
     }
 
     @Override
-    public List<User> findContributorsBySeq(int seq) {
+    public boolean removeProject(int projectSeq) {
 
-        return this.userProjectMapper.findUserByProjectSeq(seq);
-    }
-
-    @Override
-    public String findMyPart(int userSeq, int projectSeq) {
-        return this.userProjectMapper.findMyPart(userSeq, projectSeq);
+        return projectMapper.remove(projectSeq) == 1;
     }
 }

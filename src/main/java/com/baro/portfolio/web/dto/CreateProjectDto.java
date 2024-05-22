@@ -18,7 +18,7 @@ import java.sql.Date;
 @ToString
 @Getter
 @Setter
-public class CreateProjectDto extends ProjectDateDto {
+public class CreateProjectDto extends ProjectDateDto implements Unique{
 
     @NotBlank(message = "제목은 공백이 아닌 문자로 입력해주세요.")
     @Length(min = 1, max = 20, message = "1 ~ 20자로 작성해주세요.")
@@ -34,12 +34,6 @@ public class CreateProjectDto extends ProjectDateDto {
     @NotNull(message = "참여 인원은 필수 값입니다.")
     @Range(min = 1, max = 100, message = "1 ~ 100명 사이의 값을 입력해주세요.")
     private Integer headcount;
-
-//    @Size(max = 500)
-//    private String architecture;
-//
-//    @Size(max = 500)
-//    private String erd;
 
     @Length(max = 1000, message = "주요 기능은 1000자 이내로 작성해 주세요.")
     private String mainFunction;
