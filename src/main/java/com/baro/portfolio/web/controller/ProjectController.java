@@ -65,7 +65,7 @@ public class ProjectController {
         if (isInaccessible(account.getSeq(), projectInfo)) {
             throw new RuntimeException("임시");
         }
-        model.addAttribute("projectInfo", projectInfo);
+        model.addAttribute("project", projectInfo);
         return "projects/detail";
     }
 

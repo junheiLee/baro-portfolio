@@ -19,27 +19,27 @@
     </div>
 
     <div>
-        <h4 th:text="|${userInfo.name} 님|"></h4>
+        <h4 th:text="|${user.name} 님|"></h4>
         <hr class="my-1">
         <div>
             <label for="nickname">nickname</label>
-            <input type="text" id="nickname" th:field="${userInfo.nickname}" class="form-control" readonly>
+            <input type="text" id="nickname" th:field="${user.nickname}" class="form-control" readonly>
         </div>
     </div>
     <div>
         <label for="email">email</label>
-        <input type="text" id="email" th:field="${userInfo.email}" class="form-control" readonly>
+        <input type="text" id="email" th:field="${user.email}" class="form-control" readonly>
     </div>
     <div>
         <label for="introduce">introduce</label>
-        <textarea type="text" id="introduce" th:field="${userInfo.introduce}" class="form-control" readonly></textarea>
+        <textarea type="text" id="introduce" th:field="${user.introduce}" class="form-control" readonly></textarea>
     </div>
 
-    <div th:if="${session.account.getSeq() eq userInfo.getSeq()}"
+    <div th:if="${session.account.getSeq() eq user.getSeq()}"
          class="row" style="margin-top: 1rem;">
         <div class="col">
             <button class="w-100 btn btn-dark btn-lg" type="button"
-                    th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${userInfo.seq})}'|">
+                    th:onclick="|location.href='@{/users/{userSeq}/edit(userSeq=${user.seq})}'|">
                 edit
             </button>
         </div>
@@ -87,7 +87,7 @@
                     <a th:href="@{${project.github}}"><p th:text="${project.github}"> </p></a>
                 </div>
 
-                <div th:if="${session.account.getSeq() eq userInfo.getSeq()}"
+                <div th:if="${session.account.getSeq() eq user.getSeq()}"
                      class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-dark btn-sm" type="button"
                             th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${project.seq})}'|">

@@ -14,20 +14,20 @@
 
 <div class="container">
     <div class="py-1 text-left">
-        <h2 th:text="${projectInfo.title}"></h2>
+        <h2 th:text="${project.title}"></h2>
     </div>
 
 
     <div>
-        <div th:if="${projectInfo.getContributorsSeq().contains(session.account.getSeq())}"
+        <div th:if="${project.getContributorsSeq().contains(session.account.getSeq())}"
              class="d-grid gap-2 d-md-flex justify-content-md-end">
 
             <button class="btn btn-secondary btn-sm me-md-2" type="submit"
-                    th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${projectInfo.seq})}'|">
+                    th:onclick="|location.href='@{/projects/{projectSeq}/edit(projectSeq=${project.seq})}'|">
                 수정
             </button>
 
-            <form th:action="@{/projects/{projectSeq}/delete(projectSeq=${projectInfo.seq})}" method="post">
+            <form th:action="@{/projects/{projectSeq}/delete(projectSeq=${project.seq})}" method="post">
                 <button class="btn btn-danger btn-sm" type="submit"> 삭제</button>
             </form>
         </div>
@@ -37,19 +37,19 @@
         <div style="margin-top: 0.5rem;">
             <label for="description">description</label>
             <textarea type="text" id="description" name="description" class="form-control"
-                      th:text="${projectInfo.description}" readonly></textarea>
+                      th:text="${project.description}" readonly></textarea>
         </div>
 
         <div style="margin-top: 0.5rem;">
             <label>기간: </label>
-            <span th:text="|${projectInfo.start} &sim; ${projectInfo.end}|"></span>
-            <span th:if="${projectInfo.isProceeding eq 1}"> | 진행 중 </span>
+            <span th:text="|${project.start} &sim; ${project.end}|"></span>
+            <span th:if="${project.isProceeding eq 1}"> | 진행 중 </span>
         </div>
 
         <div style="margin-top: 0.5rem;">
             <label>인원: </label>
-            <span th:text="${projectInfo.headcount}"> </span>
-            <ul th:each="contributor : ${projectInfo.contributors}">
+            <span th:text="${project.headcount}"> </span>
+            <ul th:each="contributor : ${project.contributors}">
                 <li><a th:href="@{/users/{contributor}(contributor=${contributor.getSeq()})}">
                     <span th:text="${contributor.getNickname()}"></span> </a>
                 </li>
@@ -59,18 +59,18 @@
         <div style="margin-top: 0.5rem;">
             <label for="mainFunction">mainFunction</label>
             <textarea type="text" id="mainFunction" name="mainFunction" class="form-control"
-                      th:text="${projectInfo.mainFunction}" readonly></textarea>
+                      th:text="${project.mainFunction}" readonly></textarea>
         </div>
 
         <div style="margin-top: 0.5rem;">
             <label for="interest">interest</label>
             <textarea type="text" id="interest" name="interest" class="form-control"
-                      th:text="${projectInfo.interest}" readonly></textarea>
+                      th:text="${project.interest}" readonly></textarea>
         </div>
 
         <div style="margin-top: 0.5rem;">
             <label>github</label>
-            <a th:href="@{${projectInfo.github}}"><p th:text="${projectInfo.github}"></p></a>
+            <a th:href="@{${project.github}}"><p th:text="${project.github}"></p></a>
         </div>
 
     </div>

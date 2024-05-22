@@ -54,15 +54,14 @@ public class UserController {
     public String portFolio(@PathVariable int userSeq, Model model) {
 
         UserInfo userInfo = userService.findBySeq(userSeq);
-        List<PortfolioProjectInfo> projects = projectService.portfolioProjects(userSeq);
+        List<PortfolioProjectInfo> projectInfos = projectService.portfolioProjects(userSeq);
 
-        model.addAttribute("userInfo", userInfo);
-        model.addAttribute("projects", projects);
+        model.addAttribute("user", userInfo);
+        model.addAttribute("projects", projectInfos);
 
         return "users/portFolio";
     }
 
-    //todo: 로그인 계정과 일치하는 seq만 수정 가능
     @GetMapping("/{userSeq}/edit")
     public String editForm(Model model, @PathVariable int userSeq, @Current Account account) {
 
@@ -71,7 +70,7 @@ public class UserController {
         }
 
         EditUserDto dto = userService.findEditUserBySeq(userSeq);
-        model.addAttribute("editUserDto", dto);
+        model.addAttribute("editUser", dto);
 
         return "users/editForm";
     }

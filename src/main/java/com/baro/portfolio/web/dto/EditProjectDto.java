@@ -63,7 +63,7 @@ public class EditProjectDto extends ProjectDateDto {
 
 
     public Project toProjectEntity() {
-        log.info("EditProjectDto toProjectEntity 호출, isPublic={}", isPublic);
+
         return Project.builder()
                 .title(title)
                 .description(description)
