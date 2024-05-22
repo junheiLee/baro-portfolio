@@ -68,7 +68,7 @@
                 bIsProceeding as isProceeding,
                 dtCreatedAt as createdAt
         from tProject
-        where nProjectSeq = #{seq}
+        where nProjectSeq = #{projectSeq}
     </select>
 
     <update id="update">
@@ -86,12 +86,12 @@
             sInterest=#{updateParam.interest},
             sGithub=#{updateParam.github},
             dtModifiedAt= now()
-        where nProjectSeq = #{seq}
+        where nProjectSeq = #{projectSeq
     </update>
 
     <delete id="remove">
         delete
         from tProject
-        where nProjectSeq = #{seq}
+        where nProjectSeq = #{projectSeq}
     </delete>
 </mapper>

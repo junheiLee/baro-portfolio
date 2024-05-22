@@ -19,7 +19,7 @@ public interface ProjectMapper {
 
     Optional<Project> findBySeq(int projectSeq);
 
-    Integer update(@Param("seq") Integer seq,
+    Integer update(@Param("projectSeq") Integer projectSeq,
                    @Param("updateParam") Project project);
 
     Integer remove(Integer projectSeq);
