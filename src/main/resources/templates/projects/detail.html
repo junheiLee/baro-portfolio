@@ -46,7 +46,8 @@
         <div style="margin-top: 0.5rem;">
             <label>기간: </label>
             <span th:text="|${project.start} &sim; ${project.end}|"></span>
-            <span th:if="${project.isProceeding eq 1}"> | 진행 중 </span>
+            <span th:if="${project.isProceeding == true}"> | 진행 중 </span>
+
         </div>
 
         <div style="margin-top: 0.5rem;">
