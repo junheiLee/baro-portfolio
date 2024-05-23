@@ -9,7 +9,7 @@ import com.baro.portfolio.web.dto.EditUserDto;
 import com.baro.portfolio.web.dto.SignUpDto;
 import com.baro.portfolio.web.dto.result.PortfolioProjectInfo;
 import com.baro.portfolio.web.dto.result.UserInfo;
-import com.baro.portfolio.web.validation.UserValidator;
+import com.baro.portfolio.web.validation.UserDuplicatedFieldValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,29 +21,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.baro.portfolio.constant.ErrorEnum.STRANGER_EDIT_PROJECT;
+import static com.baro.portfolio.constant.ModelConst.*;
+
 @Slf4j
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserValidator userValidator;
+    private final UserDuplicatedFieldValidator userDuplicatedFieldValidator;
     private final UserService userService;
     private final ProjectService projectService;
 
-    @InitBinder({"signUpDto", "editUserDto"})
+    @InitBinder({SIGN_UP_DTO, EDIT_USER_DTO})
     public void init(WebDataBinder dataBinder) {
-        dataBinder.addValidators(userValidator);
+        dataBinder.addValidators(userDuplicatedFieldValidator);
     }
 
     @GetMapping("/sign-up")
-    public String singUpForm(@ModelAttribute("signUpDto") SignUpDto signUpDto) {
+    public String singUpForm(@ModelAttribute(SIGN_UP_DTO) SignUpDto signUpDto) {
 
         return "users/signUpForm";
     }
 
     @PostMapping("/sign-up")
-    public String signUp(@Valid @ModelAttribute("signUpDto") SignUpDto signUpDto, BindingResult result) {
+    public String signUp(@Valid @ModelAttribute(SIGN_UP_DTO) SignUpDto signUpDto, BindingResult result) {
 
         if (result.hasErrors()) {
             return "users/signUpForm";
@@ -59,8 +62,8 @@ public class UserController {
         UserInfo userInfo = userService.findBySeq(userSeq);
         List<PortfolioProjectInfo> projectInfos = projectService.portfolioProjects(userSeq);
 
-        model.addAttribute("user", userInfo);
-        model.addAttribute("projects", projectInfos);
+        model.addAttribute(USER, userInfo);
+        model.addAttribute(PROJECT_LIST, projectInfos);
 
         return "users/portFolio";
     }
@@ -70,22 +73,21 @@ public class UserController {
 
         if (account.getSeq() != userSeq) {
 
-            throw new AuthorityException("본인의 정보만 수정할 수 있습니다.");
+            throw new AuthorityException(STRANGER_EDIT_PROJECT.getMessage());
         }
         EditUserDto dto = userService.findEditUserInfoBySeq(userSeq);
-        model.addAttribute("editUserDto", dto);
-        log.info("editForm editUserDto={}", dto.toString());
+        model.addAttribute(EDIT_USER_DTO, dto);
 
         return "users/editForm";
     }
 
     @PostMapping("/{userSeq}/edit")
-    public String edit(@Valid @ModelAttribute("editUserDto") EditUserDto editUserDto,
+    public String edit(@Valid @ModelAttribute(EDIT_USER_DTO) EditUserDto editUserDto,
                        BindingResult result, @PathVariable int userSeq,
                        @Current Account account) {
 
         if (account.getSeq() != userSeq) {
-            throw new AuthorityException("본인의 정보만 수정할 수 있습니다.");
+            throw new AuthorityException(STRANGER_EDIT_PROJECT.getMessage());
         }
 
         if (result.hasErrors()) {

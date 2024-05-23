@@ -8,6 +8,8 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
 
+import static com.baro.portfolio.constant.ModelConst.ACCOUNT;
+
 @Slf4j
 public class CheckAccountInterceptor implements HandlerInterceptor {
 
@@ -17,7 +19,7 @@ public class CheckAccountInterceptor implements HandlerInterceptor {
         String requestUrl = request.getRequestURI();
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("account") == null) {
+        if (session == null || session.getAttribute(ACCOUNT) == null) {
             response.sendRedirect("/account/sign-in?redirectUrl=" + requestUrl);
             return false;
         }

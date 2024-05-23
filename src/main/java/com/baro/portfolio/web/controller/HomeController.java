@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import static com.baro.portfolio.constant.ModelConst.ACCOUNT;
+
 @Controller
 public class HomeController {
 
@@ -15,7 +17,7 @@ public class HomeController {
         if (account == null) {
             return "home";
         }
-        model.addAttribute("account", account);
+        model.addAttribute(ACCOUNT, account);
         return "forward:/users/" + account.getSeq();
     }
 

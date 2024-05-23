@@ -63,10 +63,10 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public int update(int projectSeq, Project project, int userSeq, String myPart) {
+    public void update(int projectSeq, Project project, int userSeq, String myPart) {
 
         userProjectMapper.updateMyPart(userSeq, projectSeq, myPart);
-        return projectMapper.update(projectSeq, project);
+        projectMapper.update(projectSeq, project);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class ProjectRepositoryImpl implements ProjectRepository {
     }
 
     @Override
-    public boolean removeProject(int projectSeq) {
+    public void removeProject(int projectSeq) {
 
-        return projectMapper.remove(projectSeq) == 1;
+        projectMapper.remove(projectSeq);
     }
 }

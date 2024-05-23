@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.baro.portfolio.constant.ErrorEnum.NOT_FOUND_PROJECT;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -59,7 +61,7 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectInfo read(int projectSeq) {
 
         Project project = projectRepository.findBySeq(projectSeq)
-                .orElseThrow(() -> new NotFoundException("존재하지 않는 프로젝트입니다."));
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_PROJECT.getMessage()));
 
         ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
 

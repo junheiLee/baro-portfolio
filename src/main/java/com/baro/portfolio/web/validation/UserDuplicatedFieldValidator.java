@@ -2,8 +2,8 @@ package com.baro.portfolio.web.validation;
 
 import com.baro.portfolio.service.itf.UserService;
 import com.baro.portfolio.web.dto.EditUserDto;
+import com.baro.portfolio.web.dto.HavingUniqueField;
 import com.baro.portfolio.web.dto.SignUpDto;
-import com.baro.portfolio.web.dto.Unique;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,13 +13,13 @@ import org.springframework.validation.Validator;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class UserValidator implements Validator {
+public class UserDuplicatedFieldValidator implements Validator {
 
     private final UserService userService;
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Unique.class.isAssignableFrom(clazz);
+        return HavingUniqueField.class.isAssignableFrom(clazz);
     }
 
     @Override

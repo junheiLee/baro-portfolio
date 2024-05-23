@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.baro.portfolio.constant.ErrorEnum.NOT_FOUND_USER;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<Account> signIn(SignInDto dto) {
+    public Optional<Account> findByEmailAndPassword(SignInDto dto) {
 
         Optional<User> userOptional
                 = userRepository.findByEmailAndPassword(dto.getEmail(), dto.getPassword());
@@ -66,7 +68,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo findBySeq(int seq) {
 
         Optional<User> userOptional = userRepository.findBySeq(seq);
-        User user = userOptional.orElseThrow(() -> new NotFoundException("존재하지 않는 User 입니다."));
+        User user = userOptional.orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
 
         return UserInfo.builder()
                 .seq(seq)
@@ -81,7 +83,7 @@ public class UserServiceImpl implements UserService {
     public EditUserDto findEditUserInfoBySeq(int userSeq) {
 
         Optional<User> userOptional = userRepository.findBySeq(userSeq);
-        User user = userOptional.orElseThrow(() -> new NotFoundException("존재하지 않는 User 입니다."));
+        User user = userOptional.orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
 
         return EditUserDto.fromEntity(user);
     }

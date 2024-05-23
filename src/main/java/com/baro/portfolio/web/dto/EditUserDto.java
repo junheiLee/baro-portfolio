@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EditUserDto implements Unique {
+public class EditUserDto implements HavingUniqueField {
 
     private String nickname;
     private String currentNickname;

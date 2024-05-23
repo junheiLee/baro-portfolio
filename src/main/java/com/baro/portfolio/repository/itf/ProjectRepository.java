@@ -21,12 +21,12 @@ public interface ProjectRepository {
 
     List<User> findContributorsBySeq(int projectSeq);
 
-    int update(int projectSeq, Project project, int userSeq, String myPart);
+    void update(int projectSeq, Project project, int userSeq, String myPart);
 
     void removeContributor(int userSeq, int projectSeq);
 
     int countContributors(int projectSeq);
 
-    boolean removeProject(int projectSeq);
+    void removeProject(int projectSeq);
 
 }

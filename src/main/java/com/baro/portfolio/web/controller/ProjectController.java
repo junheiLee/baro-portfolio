@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.baro.portfolio.constant.ErrorEnum.*;
+import static com.baro.portfolio.constant.ModelConst.*;
+
 
 @Slf4j
 @RequiredArgsConstructor
@@ -32,7 +35,7 @@ public class ProjectController {
     public String projects(Model model) {
 
         List<ProjectInfo> projects = projectService.projects(null, true);
-        model.addAttribute("projects", projects);
+        model.addAttribute(PROJECT_LIST, projects);
 
         return "projects/list";
     }
@@ -41,7 +44,7 @@ public class ProjectController {
     public String myProjects(@Current Account account, Model model) {
 
         List<ProjectInfo> projects = projectService.projects(account.getSeq(), null);
-        model.addAttribute("projects", projects);
+        model.addAttribute(PROJECT_LIST, projects);
 
         return "projects/list";
     }
@@ -53,11 +56,11 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public String createProject(@Valid @ModelAttribute("createProjectDto") CreateProjectDto createProjectDto,
+    public String createProject(@Valid @ModelAttribute(CREATE_PROJECT_DTO) CreateProjectDto createProjectDto,
                                 BindingResult result, @Current Account account) {
 
         if (isImpossibleDateSet(createProjectDto)) {
-            result.reject("canNotExistDateSet", "시작 날짜는 종료 날짜보다 과거여야 합니다.");
+            result.reject(CAN_NOT_EXIST_DATE_SET.getCode(), CAN_NOT_EXIST_DATE_SET.getMessage());
         }
 
         if (result.hasErrors()) {
@@ -74,9 +77,9 @@ public class ProjectController {
         ProjectInfo projectInfo = projectService.read(projectSeq);
 
         if (isInaccessible(account.getSeq(), projectInfo)) {
-            throw new AuthorityException("private 프로젝트입니다.");
+            throw new AuthorityException(STRANGER_READ_PROJECT.getMessage());
         }
-        model.addAttribute("project", projectInfo);
+        model.addAttribute(PROJECT, projectInfo);
         return "projects/detail";
     }
 
@@ -89,11 +92,11 @@ public class ProjectController {
                            Model model, @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
-            throw new AuthorityException("본인이 참여한 프로젝트만 수정할 수 있습니다.");
+            throw new AuthorityException(STRANGER_EDIT_PROJECT.getMessage());
         }
 
         EditProjectDto dto = projectService.read(account.getSeq(), projectSeq);
-        model.addAttribute("editProjectDto", dto);
+        model.addAttribute(EDIT_PROJECT_DTO, dto);
 
         return "projects/editForm";
     }
@@ -104,11 +107,11 @@ public class ProjectController {
                        BindingResult result, @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
-            throw new AuthorityException("본인이 참여한 프로젝트만 수정할 수 있습니다.");
+            throw new AuthorityException(STRANGER_EDIT_PROJECT.getMessage());
         }
 
         if (isImpossibleDateSet(editProjectDto)) {
-            result.reject("canNotExistDateSet", "시작 날짜는 종료 날짜보다 과거여야 합니다.");
+            result.reject(CAN_NOT_EXIST_DATE_SET.getCode(), CAN_NOT_EXIST_DATE_SET.getMessage());
         }
 
         if (result.hasErrors()) {
@@ -131,7 +134,7 @@ public class ProjectController {
                          @PathVariable int projectSeq) {
 
         if (isStranger(account, projectSeq)) {
-            throw new AuthorityException("본인이 참여한 프로젝트만 삭제할 수 있습니다.");
+            throw new AuthorityException(STRANGER_DELETE_PROJECT.getMessage());
         }
 
         projectService.delete(account.getSeq(), projectSeq);

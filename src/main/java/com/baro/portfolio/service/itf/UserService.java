@@ -18,7 +18,7 @@ public interface UserService {
 
     boolean isPhoneDuplicated(String phone);
 
-    Optional<Account> signIn(SignInDto dto);
+    Optional<Account> findByEmailAndPassword(SignInDto dto);
 
     UserInfo findBySeq(int userSeq);
 

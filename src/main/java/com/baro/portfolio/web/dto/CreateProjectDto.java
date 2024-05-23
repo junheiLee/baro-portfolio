@@ -18,7 +18,7 @@ import java.sql.Date;
 @ToString
 @Getter
 @Setter
-public class CreateProjectDto extends ProjectDateDto implements Unique {
+public class CreateProjectDto extends ProjectDateDto implements HavingUniqueField {
 
     @NotBlank
     @Length(min = 1, max = 20, message = "1 ~ 20자로 작성해주세요.")

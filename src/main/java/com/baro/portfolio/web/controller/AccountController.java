@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import static com.baro.portfolio.constant.ErrorEnum.LOGIN_FAIL;
+import static com.baro.portfolio.constant.ModelConst.ACCOUNT;
+import static com.baro.portfolio.constant.ModelConst.SIGN_IN_DTO;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +27,7 @@ public class AccountController {
     private final UserService userService;
 
     @GetMapping("/sign-in")
-    public String signInForm(@ModelAttribute("signInDto") SignInDto dto) {
+    public String signInForm(@ModelAttribute(SIGN_IN_DTO) SignInDto dto) {
 
         return "users/signInForm";
     }
@@ -37,15 +41,15 @@ public class AccountController {
             return "users/signInForm";
         }
 
-        Optional<Account> account = userService.signIn(dto);
+        Optional<Account> account = userService.findByEmailAndPassword(dto);
 
         if (account.isEmpty()) {
-            result.reject("loginFail", "아이디 혹은 비밀 번호가 일치하지 않습니다.");
+            result.reject(LOGIN_FAIL.getCode(), LOGIN_FAIL.getMessage());
             return "users/signInForm";
         }
 
         HttpSession session = request.getSession();
-        session.setAttribute("account", account.get());
+        session.setAttribute(ACCOUNT, account.get());
 
         return "redirect:" + redirectUrl;
     }
