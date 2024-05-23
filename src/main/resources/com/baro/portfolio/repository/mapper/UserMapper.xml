@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.baro.portfolio.repository.mapper.UserMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="seq">
+        insert into tUser(sEmail, sPassword, sNickname,
+        sName, sPhone, sIntroduce)
+        values (#{email}, #{password}, #{nickname},
+        #{name}, #{phone}, #{introduce})
+
+        <selectKey keyProperty="seq" resultType="int" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="countByEmail" resultType="Integer">
+        select count(*)
+        from tUser
+        where sEmail = #{email}
+    </select>
+
+    <select id="countByNickname" resultType="Integer">
+        select count(*)
+        from tUser
+        where sNickname = #{nickname}
+    </select>
+
+    <select id="countByPhone" resultType="Integer">
+        select count(*)
+        from tUser
+        where sPhone = #{phone}
+    </select>
+
+    <select id="findByEmailAndPassword" resultType="User">
+        select sNickname as nickname, nUserSeq as seq
+        from tUser
+        where sEmail = #{email}
+          and sPassword = #{password}
+    </select>
+
+    <select id="findBySeq" resultType="User">
+        select nUserSeq as seq, sName as name, sNickname as nickname, sEmail as email, sIntroduce as introduce
+        from tUser
+        where nUserSeq = #{userSeq}
+    </select>
+
+    <update id="updateBySeq">
+        update tUser
+        set sNickname=#{user.nickname},
+            sIntroduce=#{user.introduce}
+        where nUserSeq = #{userSeq}
+    </update>
+
+</mapper>
