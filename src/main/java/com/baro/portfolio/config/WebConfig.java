@@ -2,6 +2,7 @@ package com.baro.portfolio.config;
 
 import com.baro.portfolio.web.argumentresolver.CurrentAccountArgumentResolver;
 import com.baro.portfolio.web.interceptor.CheckAccountInterceptor;
+import com.baro.portfolio.web.interceptor.LogInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -24,9 +25,15 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(new CheckAccountInterceptor())
+        registry.addInterceptor(new LogInterceptor())
                 .order(1)
                 .addPathPatterns("/**")
-                .excludePathPatterns(WHITE_LIST);
+                .excludePathPatterns("/css/**", "/*.ico", "/error");
+
+        registry.addInterceptor(new CheckAccountInterceptor())
+                        .order(2)
+                        .addPathPatterns("/**")
+                        .excludePathPatterns(WHITE_LIST);
+
     }
 }

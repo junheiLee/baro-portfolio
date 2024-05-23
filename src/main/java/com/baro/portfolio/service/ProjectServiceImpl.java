@@ -62,7 +62,6 @@ public class ProjectServiceImpl implements ProjectService {
 
         Project project = projectRepository.findBySeq(projectSeq)
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_PROJECT.getMessage()));
-
         ProjectInfo projectInfo = ProjectInfo.fromEntity(project);
 
         List<User> users = projectRepository.findContributorsBySeq(projectSeq);

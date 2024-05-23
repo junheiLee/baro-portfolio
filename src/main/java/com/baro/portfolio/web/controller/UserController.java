@@ -13,6 +13,7 @@ import com.baro.portfolio.web.validation.UserDuplicatedFieldValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,15 +25,26 @@ import java.util.List;
 import static com.baro.portfolio.constant.ErrorEnum.STRANGER_EDIT_PROJECT;
 import static com.baro.portfolio.constant.ModelConst.*;
 
+/**
+ * 회원 가입, 수정, 정보(portfolio) 요청 처리 컨트롤러
+ */
 @Slf4j
 @Controller
 @RequestMapping("/users")
-@RequiredArgsConstructor
 public class UserController {
 
     private final UserDuplicatedFieldValidator userDuplicatedFieldValidator;
     private final UserService userService;
     private final ProjectService projectService;
+
+    @Autowired
+    public UserController(UserDuplicatedFieldValidator userDuplicatedFieldValidator,
+                          UserService userService,
+                          ProjectService projectService) {
+        this.userDuplicatedFieldValidator = userDuplicatedFieldValidator;
+        this.userService = userService;
+        this.projectService = projectService;
+    }
 
     @InitBinder({SIGN_UP_DTO, EDIT_USER_DTO})
     public void init(WebDataBinder dataBinder) {
@@ -40,13 +52,13 @@ public class UserController {
     }
 
     @GetMapping("/sign-up")
-    public String singUpForm(@ModelAttribute(SIGN_UP_DTO) SignUpDto signUpDto) {
+    public String singUpForm(@ModelAttribute SignUpDto signUpDto) {
 
         return "users/signUpForm";
     }
 
     @PostMapping("/sign-up")
-    public String signUp(@Valid @ModelAttribute(SIGN_UP_DTO) SignUpDto signUpDto, BindingResult result) {
+    public String signUp(@Valid @ModelAttribute SignUpDto signUpDto, BindingResult result) {
 
         if (result.hasErrors()) {
             return "users/signUpForm";
@@ -82,7 +94,7 @@ public class UserController {
     }
 
     @PostMapping("/{userSeq}/edit")
-    public String edit(@Valid @ModelAttribute(EDIT_USER_DTO) EditUserDto editUserDto,
+    public String edit(@Valid @ModelAttribute EditUserDto editUserDto,
                        BindingResult result, @PathVariable int userSeq,
                        @Current Account account) {
 

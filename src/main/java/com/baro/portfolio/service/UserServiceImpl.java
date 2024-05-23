@@ -32,11 +32,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isEmailDuplicated(String email) {
+
         return userRepository.existsByEmail(email);
     }
 
     @Override
     public boolean isNicknameDuplicated(String nickname, String currentNickname) {
+
         if (currentNickname.equals(nickname)) {
             return false;
         }
@@ -45,6 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isPhoneDuplicated(String phone) {
+
         return userRepository.existsByPhone(phone);
     }
 
@@ -67,8 +70,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo findBySeq(int seq) {
 
-        Optional<User> userOptional = userRepository.findBySeq(seq);
-        User user = userOptional.orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
+        User user = userRepository.findBySeq(seq)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
 
         return UserInfo.builder()
                 .seq(seq)
@@ -82,8 +85,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public EditUserDto findEditUserInfoBySeq(int userSeq) {
 
-        Optional<User> userOptional = userRepository.findBySeq(userSeq);
-        User user = userOptional.orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
+        User user = userRepository.findBySeq(userSeq)
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_USER.getMessage()));
 
         return EditUserDto.fromEntity(user);
     }

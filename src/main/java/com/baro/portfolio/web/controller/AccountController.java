@@ -18,6 +18,10 @@ import static com.baro.portfolio.constant.ErrorEnum.LOGIN_FAIL;
 import static com.baro.portfolio.constant.ModelConst.ACCOUNT;
 import static com.baro.portfolio.constant.ModelConst.SIGN_IN_DTO;
 
+
+/**
+ * 로그인 로그아웃 관련 처리 컨트롤러
+ */
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -27,7 +31,7 @@ public class AccountController {
     private final UserService userService;
 
     @GetMapping("/sign-in")
-    public String signInForm(@ModelAttribute(SIGN_IN_DTO) SignInDto dto) {
+    public String signInForm(@ModelAttribute SignInDto signInDto) {
 
         return "users/signInForm";
     }

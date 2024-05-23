@@ -22,7 +22,9 @@ import java.util.List;
 import static com.baro.portfolio.constant.ErrorEnum.*;
 import static com.baro.portfolio.constant.ModelConst.*;
 
-
+/**
+ * 프로젝트 List, CRUD 처리 컨트롤러
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -56,7 +58,7 @@ public class ProjectController {
     }
 
     @PostMapping("/add")
-    public String createProject(@Valid @ModelAttribute(CREATE_PROJECT_DTO) CreateProjectDto createProjectDto,
+    public String createProject(@Valid @ModelAttribute CreateProjectDto createProjectDto,
                                 BindingResult result, @Current Account account) {
 
         if (isImpossibleDateSet(createProjectDto)) {
@@ -83,7 +85,7 @@ public class ProjectController {
         return "projects/detail";
     }
 
-    private static boolean isInaccessible(int accountSeq, ProjectInfo projectInfo) {
+    private boolean isInaccessible(int accountSeq, ProjectInfo projectInfo) {
         return !projectInfo.isPublic() && !projectInfo.getContributorsSeq().contains(accountSeq);
     }
 
@@ -122,7 +124,7 @@ public class ProjectController {
         return "redirect:/projects/" + projectSeq;
     }
 
-    private static boolean isImpossibleDateSet(ProjectDateDto projectDateDto) {
+    private boolean isImpossibleDateSet(ProjectDateDto projectDateDto) {
 
         return projectDateDto.getStart() != null
                 && projectDateDto.getEnd() != null
